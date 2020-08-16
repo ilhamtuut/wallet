@@ -3,8 +3,8 @@
 <div class="row mt">
     <div class="col-md-4">
         <div class="widget widget-default widget-no-subtitle">
-            <div class="widget-big-int"><span class="num-count">0.0000003</span> BTC/GLP</div>                   
-            <div class="widget-subtitle">Last trade price</div>                         
+            <div class="widget-big-int"><span class="num-count">{{$glp_btc}}</span> BTC/GLP</div>                   
+            <div class="widget-subtitle">Last estimated price</div>                         
         </div>                        
     </div>
     <div class="col-md-4">
