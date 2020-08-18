@@ -7,4 +7,5 @@
     
     <link rel="icon" href="{{asset('dist/img/favicon.png')}}" type="image/x-icon" />
     <link rel="stylesheet" type="text/css" id="theme" href="{{asset('dist/css/theme-default.css')}}"/>
+	<link href="{{asset('dist/captcha/slidercaptcha.css')}}" rel="stylesheet" />
 </head>

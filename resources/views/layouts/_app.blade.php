@@ -71,6 +71,21 @@
         </div>
         <!-- END MESSAGE BOX-->
 
+        <div class="modal fade" id="modal_capctha" role="dialog" tabindex="-5"aria-hidden="true">
+          <div class="modal-dialog modal-sm">
+            <div class="modal-content" style="background-color: transparent; border: unset;">
+                <div class="modal-body" style="padding: unset;">
+                    <div class="slidercaptcha panel panel">
+                        <div class="panel-heading bg-primary">
+                            <span class="panel-title"><span class="text-white">Drag To Verify</span></span>
+                        </div>
+                        <div class="panel-body"><div id="captcha"></div></div>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+
         <!-- START PRELOADS -->
         <audio id="audio-alert" src="{{asset('dist/audio/alert.mp3')}}" preload="auto"></audio>
         <audio id="audio-fail" src="{{asset('dist/audio/fail.mp3')}}" preload="auto"></audio>

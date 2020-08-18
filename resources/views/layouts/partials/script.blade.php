@@ -11,6 +11,8 @@
 <script type="text/javascript" src="{{asset('dist/js/settings.js')}}"></script>        
 <script type="text/javascript" src="{{asset('dist/js/plugins.js')}}"></script>        
 <script type="text/javascript" src="{{asset('dist/js/actions.js')}}"></script>
+<script type='text/javascript' src='{{asset('dist/js/plugins/jquery-validation/jquery.validate.js')}}'></script>  
+<script src="{{ asset('dist/captcha/longbow.slidercaptcha.js')}}"></script>
 <script type="text/javascript">
 	$('.x-navigation .xn-search').on('click', function (e) {
 		if (e.offsetX > e.target.offsetLeft) {

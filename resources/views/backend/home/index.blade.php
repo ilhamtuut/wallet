@@ -34,7 +34,7 @@
                             <tr>
                                 <th>Block</th>
                                 <th>Time</th>
-                                <th>Transactions</th>
+                                <th>Nonce</th>
                                 <th>Difficulty</th>
                             </tr>
                         </thead>
@@ -94,7 +94,7 @@
                         $('#body-block').append(
                             '<tr>'+
                                 '<td><a href="{{url('block')}}/'+item.hash+'">'+ item.hash +'</a></td>'+
-                                '<td>'+ item.timestamp +'</td>'+
+                                '<td>'+ timeConverter(item.timestamp) +'</td>'+
                                 '<td>'+ item.nonce +'</td>'+
                                 '<td>'+ item.difficulty +'</td>'+
                             '</tr>');
@@ -126,6 +126,19 @@
             },
             cache: false
         });
+    }
+
+    function timeConverter(UNIX_timestamp){
+        var a = new Date(UNIX_timestamp);
+        var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        var year = a.getFullYear();
+        var month = months[a.getMonth()];
+        var date = a.getDate();
+        var hour = a.getHours();
+        var min = a.getMinutes();
+        var sec = a.getSeconds();
+        var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
+        return time;
     }
 </script>
 @endsection
