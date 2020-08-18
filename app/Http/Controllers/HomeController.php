@@ -30,7 +30,7 @@ class HomeController extends Controller
         $response = Curl::to($url)
             ->asJson()
             ->get();
-        $glp_btc = $response;
+        $glp_btc = number_format($response,8);
         return view('backend.home.index',compact('glp_btc'));
     }
 
