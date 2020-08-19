@@ -53,12 +53,15 @@ class Glp {
 
     public function transaction($recipient, $amount)
     {
+        // $recipient = '041cb71f74b3e6b094ae00a31ff8b7aad2bc8d5dc68e9760989fb3ce4db23a1498cb18b7f7d1d1b2a287faa54e0fdaf2a132dfe676b4ad6d0fc00017caf9435476'; 
+        
         $response = Curl::to($this->host.'transact')
             ->withData([
                 'recipient' => $recipient,
                 'amount' => $amount
             ])
             ->withHeader('Content-Type: application/json')
+            ->allowRedirect()
             ->asJson()
             ->post();
         return $response;
