@@ -74,7 +74,7 @@
         <div class="modal fade" id="modal_capctha" role="dialog" tabindex="-5"aria-hidden="true">
           <div class="modal-dialog modal-sm">
             <div class="modal-content" style="background-color: transparent; border: unset;">
-                <div class="modal-body" style="padding: unset;">
+                <div class="modal-body">
                     <div class="slidercaptcha panel panel">
                         <div class="panel-heading bg-primary">
                             <span class="panel-title"><span class="text-white">Drag To Verify</span></span>
