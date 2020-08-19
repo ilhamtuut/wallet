@@ -23,7 +23,7 @@
         repeatIcon: 'fa fa-repeat',
         maxLoadCount: 3,
         localImages: function () {
-            return 'images/Pic' + Math.round(Math.floor(Math.random() * 6) + 1) + '.jpg';
+            return 'images/Pic' + Math.round(Math.floor(Math.random() * 6) + 1) + '.png';
         },
         verify: function (arr, url) {
             var ret = false;

@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Crypt;
 class Glp {
 
     private $host = 'http://mumbai.solusi.cloud:3001/';
+    // list API ['blocks','transactions','mywallet','transact','mine']
 
     public function blocks()
     {
@@ -28,6 +29,38 @@ class Glp {
             ->withHeader('Content-Type: application/json')
             ->asJson()
             ->get();
+        return $response;
+    }
+
+    public function myWallet()
+    {
+        $response = Curl::to($this->host.'mywallet')
+            ->withHeader('Content-Type: application/json')
+            ->asJson()
+            ->get();
+        return $response->publicKey;
+    }
+
+    public function createWallet()
+    {
+        # code...
+    }
+
+    public function balance($address)
+    {
+        # code...
+    }
+
+    public function transaction($recipient, $amount)
+    {
+        $response = Curl::to($this->host.'transact')
+            ->withData([
+                'recipient' => $recipient,
+                'amount' => $amount
+            ])
+            ->withHeader('Content-Type: application/json')
+            ->asJson()
+            ->post();
         return $response;
     }
 }
