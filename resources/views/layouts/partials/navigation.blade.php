@@ -9,12 +9,12 @@
         <li class="{{ isset($page) && $page == 'api' ? 'active' : '' }}">
             <a href="{{route('api.index')}}"><span class="fa fa-cogs"></span> <span class="xn-text">API</span></a>
         </li>
-        <li class="">
+        {{-- <li class="">
             <a href="{{route('login')}}"><span class="fa fa-sign-in"></span> <span class="xn-text">Login</span></a>
         </li>
         <li class="">
             <a href="{{route('register')}}"><span class="fa fa-pencil-square-o"></span> <span class="xn-text">Register</span></a>
-        </li>
+        </li> --}}
     @else
         <li class="{{ isset($page) && $page == 'my_wallet' ? 'active' : '' }}">
             <a href="{{route('wallet.index')}}"><span class="fa fa-credit-card"></span> <span class="xn-text">My Wallet</span></a>

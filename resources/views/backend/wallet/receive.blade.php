@@ -13,7 +13,7 @@
                 <h3 class="panel-title"><span class="fa fa-arrow-circle-down"></span> Receive</h3>
             </div>
             <div class="panel-body">
-                <p>These are your DOGE addresses which you can use to receive money.</p>
+                <p>These are your GLP addresses which you can use to receive money.</p>
                 <button class="btn btn-success mb"><i class="fa fa-plus"></i> New Address</button>
                 <div class="table-responsive">
                     <table class="table table-bordered">
