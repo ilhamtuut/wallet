@@ -72,16 +72,20 @@ class MyWalletController extends Controller
     public function receive(Request $request)
     {    
         $wallet = Auth::user()->wallet;
-        $balance = number_format(Glp::balance());
-        $renderer = new \BaconQrCode\Renderer\Image\Png();
-        $renderer->setWidth(200);
-        $renderer->setHeight(200);
-        $encoding = 'utf-8';
-        $bacon = new \BaconQrCode\Writer($renderer);
-        $address = $wallet->address;
-        $data = $bacon->writeString($address, $encoding);
-        $qrCode = 'data:image/png;base64,'.base64_encode($data);
-        return view('backend.wallet.receive',compact('qrCode','wallet','balance'));
+        if($wallet){
+            $balance = number_format(Glp::balance());
+            $renderer = new \BaconQrCode\Renderer\Image\Png();
+            $renderer->setWidth(200);
+            $renderer->setHeight(200);
+            $encoding = 'utf-8';
+            $bacon = new \BaconQrCode\Writer($renderer);
+            $address = $wallet->address;
+            $data = $bacon->writeString($address, $encoding);
+            $qrCode = 'data:image/png;base64,'.base64_encode($data);
+            return view('backend.wallet.receive',compact('qrCode','wallet','balance'));
+        }else{
+            return redirect()->route('wallet.index');
+        }
     }
 
     public function updateLabel(Request $request)
