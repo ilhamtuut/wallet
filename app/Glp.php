@@ -92,7 +92,8 @@ class Glp {
 
     public function transaction($recipient, $amount)
     {   
-        $response = Curl::to($this->host.'transact')
+        $url = Wallet::where('user_id',Auth::id())->first()->endpoind_port;
+        $response = Curl::to($url.'transact')
             ->withData([
                 'recipient' => $recipient,
                 'amount' => $amount
