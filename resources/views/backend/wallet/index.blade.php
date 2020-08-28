@@ -14,6 +14,7 @@
             </div>
             <div class="panel-body">
                 <div class="row">
+                    @if($address)
                     <div class="col-md-6">
                         <h3><b>Information Wallet</b></h3>
                         <div class="table-responsive">
@@ -57,6 +58,11 @@
                             <p>You can deposit GLP to the address above to start using your online wallet.</p>
                         </div>
                     </div>
+                    @else
+                        <div class="col-md-12">
+                            <a href="{{route('wallet.show_wallet')}}" class="btn btn-primary mb">Show Wallet</a>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

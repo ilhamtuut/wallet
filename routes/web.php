@@ -25,6 +25,7 @@ Route::get('/address/{address}', ['as' => 'explorer.address', 'uses' => 'Explore
 Route::group(['middleware' => ['auth']], function() {
 	Route::group(['prefix' => 'wallet', 'as' => 'wallet.'], function() {
 	  	Route::get('/', ['as' => 'index', 'uses' => 'MyWalletController@index']);
+	  	Route::get('/show_wallet', ['as' => 'show_wallet', 'uses' => 'MyWalletController@show_wallet']);
 	  	Route::get('/transaction', ['as' => 'transaction', 'uses' => 'MyWalletController@transaction']);
 	  	Route::get('/send', ['as' => 'send', 'uses' => 'MyWalletController@send']);
 	  	Route::get('/receive', ['as' => 'receive', 'uses' => 'MyWalletController@receive']);

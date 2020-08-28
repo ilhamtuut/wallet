@@ -46,6 +46,12 @@ class MyWalletController extends Controller
         return view('backend.wallet.index',compact('qrCode','address','balance'));
     }
 
+    public function show_wallet(Request $request)
+    {
+        Glp::myWallet();
+        return redirect()->route('wallet.index');
+    }
+
     public function transaction(Request $request)
     {    
         return view('backend.wallet.transaction');
