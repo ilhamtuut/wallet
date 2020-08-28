@@ -34,15 +34,6 @@ class Glp {
         return $response;
     }
 
-    public function myWallet($url)
-    {
-        $response = Curl::to($url.'/mywallet')
-            ->withHeader('Content-Type: application/json')
-            ->asJson()
-            ->get();
-        return $response->publicKey;
-    }
-
     public function createWallet($label)
     {
         $params = $this->generatePort();
@@ -64,12 +55,22 @@ class Glp {
                 'endpoind_p2p' => $response->p2p_server,
                 'description' => 'Greenline Project'
             ]);
-
-            $wallet->address = $this->myWallet($response->http_port_endpoint);
-            $wallet->save();
+            $this->myWallet($wallet->endpoind_port);
+            // $wallet->address = $this->myWallet($response->http_port_endpoint);
+            // $wallet->save();
             $return = true;
         }
         return $return;
+    }
+
+    public function myWallet($url)
+    {
+        $response = Curl::to($url.'/mywallet')
+            ->withHeader('Content-Type: application/json')
+            ->asJson()
+            ->get();
+        Wallet::where('user_id',Auth::id())->update(['address' => $response->publicKey]);
+        return true;
     }
 
     public function balance()
