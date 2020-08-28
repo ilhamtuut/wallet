@@ -71,7 +71,8 @@ class Glp {
 
     public function balance()
     {
-        $url = Auth::user()->wallet->endpoind_port;
+        // $url = Auth::user()->wallet->endpoind_port;
+        $url = Wallet::where('user_id',Auth::id())->first()->endpoind_port;
         $response = Curl::to($url.'/balance')
             ->withHeader('Content-Type: application/json')
             ->asJson()
