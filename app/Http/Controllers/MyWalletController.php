@@ -30,6 +30,9 @@ class MyWalletController extends Controller
         $wallet = Auth::user()->wallet;
         if(is_null($wallet)){
             Glp::createWallet('My Wallet');
+            $address = Wallet::where('user_id',Auth::id())->first()->address;
+        }else{
+            $address = $wallet->address;
         }
         $balance = number_format(Glp::balance());
         $renderer = new \BaconQrCode\Renderer\Image\Png();
@@ -37,7 +40,6 @@ class MyWalletController extends Controller
         $renderer->setHeight(200);
         $encoding = 'utf-8';
         $bacon = new \BaconQrCode\Writer($renderer);
-        $address = $wallet->address;
         $data = $bacon->writeString($address, $encoding);
         $qrCode = 'data:image/png;base64,'.base64_encode($data);
         
