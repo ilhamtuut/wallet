@@ -57,7 +57,8 @@ class Glp {
             Wallet::create([
                 'user_id' => Auth::id(),
                 'label' => $label,
-                'address' => $this->myWallet($response->http_port_endpoint),
+                // 'address' => $this->myWallet($response->http_port_endpoint),
+                'address' => 'NULL',
                 'port' => $params['userid'],
                 'p2p' => $params['p2p'],
                 'endpoind_port' => $response->http_port_endpoint,
