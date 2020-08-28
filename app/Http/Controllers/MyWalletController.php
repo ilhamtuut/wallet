@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
+use App\Wallet;
+use App\Facades\Glp;
 use Illuminate\Http\Request;
 
 class MyWalletController extends Controller
@@ -22,32 +25,72 @@ class MyWalletController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
 
-    public function index(Request $Request)
+    public function index(Request $request)
     {
+        $wallet = Auth::user()->wallet;
+        if(is_null($wallet)){
+            Glp::createWallet('My Wallet');
+        }
+        $balance = number_format(Glp::balance());
         $renderer = new \BaconQrCode\Renderer\Image\Png();
         $renderer->setWidth(200);
         $renderer->setHeight(200);
         $encoding = 'utf-8';
         $bacon = new \BaconQrCode\Writer($renderer);
-        $address = 'DLHWwjG33EvP9FDYRqSEqwRpTjPPFwrDBE';
+        $address = $wallet->address;
         $data = $bacon->writeString($address, $encoding);
         $qrCode = 'data:image/png;base64,'.base64_encode($data);
         
-        return view('backend.wallet.index',compact('qrCode','address'));
+        return view('backend.wallet.index',compact('qrCode','address','balance'));
     }
 
-    public function transaction(Request $Request)
+    public function transaction(Request $request)
     {    
         return view('backend.wallet.transaction');
     }
 
-    public function send(Request $Request)
+    public function send(Request $request)
     {    
         return view('backend.wallet.send');
     }
 
-    public function receive(Request $Request)
+    public function sendCoin(Request $request)
+    {
+        $this->validate($request, [
+            'destination' => ['required', 'string'],
+            'amount' => ['required', 'numeric'],
+        ]);
+        $recipient = $request->destination;
+        $amount = $request->amount;
+        Glp::transaction($recipient, $amount);
+        $request->session()->flash('success', 'Successfully, send money.');
+        return redirect()->back();
+    }
+
+    public function receive(Request $request)
     {    
-        return view('backend.wallet.receive');
+        $wallet = Auth::user()->wallet;
+        $balance = number_format(Glp::balance());
+        $renderer = new \BaconQrCode\Renderer\Image\Png();
+        $renderer->setWidth(200);
+        $renderer->setHeight(200);
+        $encoding = 'utf-8';
+        $bacon = new \BaconQrCode\Writer($renderer);
+        $address = $wallet->address;
+        $data = $bacon->writeString($address, $encoding);
+        $qrCode = 'data:image/png;base64,'.base64_encode($data);
+        return view('backend.wallet.receive',compact('qrCode','wallet','balance'));
+    }
+
+    public function updateLabel(Request $request)
+    {
+        $this->validate($request, [
+            'label' => ['required', 'string'],
+        ]);
+        $wallet = Auth::user()->wallet;
+        $wallet->label = $request->label;
+        $wallet->save();
+        $request->session()->flash('success', 'Successfully, updated label');
+        return redirect()->back();
     }
 }

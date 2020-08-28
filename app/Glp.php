@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Str;
 use Response;
 use App\Wallet;
 use App\Transaction;
@@ -12,7 +13,8 @@ use Illuminate\Support\Facades\Crypt;
 class Glp {
 
     private $host = 'http://mumbai.solusi.cloud:3001/';
-    // list API ['blocks','transactions','mywallet','transact','mine']
+    private $_host = 'http://mumbai.solusi.cloud:8000/';
+    // list API ['blocks (GET)','transactions (GET)','mywallet (GET)','transact (POST)','mine (POST)','balance (GET)', 'mine-transactions (GET)','peers (GET)']
 
     public function blocks()
     {
@@ -32,29 +34,57 @@ class Glp {
         return $response;
     }
 
-    public function myWallet()
+    public function myWallet($url)
     {
-        $response = Curl::to($this->host.'mywallet')
+        $response = Curl::to($url.'/mywallet')
             ->withHeader('Content-Type: application/json')
             ->asJson()
             ->get();
         return $response->publicKey;
     }
 
-    public function createWallet()
+    public function createWallet($label)
     {
-        # code...
+        $params = $this->generatePort();
+        $response = Curl::to($this->_host)
+            ->withData($params)
+            ->withHeader('Content-Type: application/json')
+            ->asJson()
+            ->post();
+        $return = false;
+        $res = json_encode($response);
+        if(Str::contains($res, 'http_port_endpoint')){
+            Wallet::create([
+                'user_id' => Auth::id(),
+                'label' => $label,
+                'address' => $this->myWallet($response->http_port_endpoint),
+                'port' => $params['userid'],
+                'p2p' => $params['p2p'],
+                'endpoind_port' => $response->http_port_endpoint,
+                'endpoind_p2p' => $response->p2p_server,
+                'description' => 'Greenline Project'
+            ]);
+            $return = true;
+        }
+        return $return;
     }
 
-    public function balance($address)
+    public function balance()
     {
-        # code...
+        $url = Auth::user()->wallet->endpoind_port;
+        $response = Curl::to($url.'/balance')
+            ->withHeader('Content-Type: application/json')
+            ->asJson()
+            ->get();
+        $balance = 0;
+        if($response){
+            $balance = $response->balance;
+        }
+        return $balance;
     }
 
     public function transaction($recipient, $amount)
-    {
-        // $recipient = '041cb71f74b3e6b094ae00a31ff8b7aad2bc8d5dc68e9760989fb3ce4db23a1498cb18b7f7d1d1b2a287faa54e0fdaf2a132dfe676b4ad6d0fc00017caf9435476'; 
-        
+    {   
         $response = Curl::to($this->host.'transact')
             ->withData([
                 'recipient' => $recipient,
@@ -65,5 +95,28 @@ class Glp {
             ->asJson()
             ->post();
         return $response;
+    }
+
+    private function generatePort()
+    {
+        # range port => not port (8000/2233) (3010 - 65535)
+        $port = 3010;
+        $p2p = 5010;
+        $wallet = Wallet::orderBy('id','desc')->first();
+        if($wallet){
+            $port = $wallet->port + 1;
+            $p2p = $wallet->p2p + 1;
+
+            if($port == 8000 || $port == 2233){
+                $port = $port + 1;
+            }
+        }
+
+        $data = array(
+            'email' => Auth::user()->email,
+            'userid' => $port, 
+            'p2p' => $p2p
+        );
+        return $data;
     }
 }

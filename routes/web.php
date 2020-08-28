@@ -28,9 +28,13 @@ Route::group(['middleware' => ['auth']], function() {
 	  	Route::get('/transaction', ['as' => 'transaction', 'uses' => 'MyWalletController@transaction']);
 	  	Route::get('/send', ['as' => 'send', 'uses' => 'MyWalletController@send']);
 	  	Route::get('/receive', ['as' => 'receive', 'uses' => 'MyWalletController@receive']);
+	  	Route::post('/updateLabel', ['as' => 'updateLabel', 'uses' => 'MyWalletController@updateLabel']);
+	  	Route::post('/sendCoin', ['as' => 'sendCoin', 'uses' => 'MyWalletController@sendCoin']);
 	});
 
 	Route::group(['prefix' => 'account', 'as' => 'account.'], function() {
 	  	Route::get('/setting', ['as' => 'setting', 'uses' => 'UserController@setting']);
+	  	Route::post('/updateName', ['as' => 'updateName', 'uses' => 'UserController@updateName']);
+	  	Route::post('/updatePassword', ['as' => 'updatePassword', 'uses' => 'UserController@updatePassword']);
 	});
 });
