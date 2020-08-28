@@ -40,7 +40,7 @@ class Glp {
             ->withHeader('Content-Type: application/json')
             ->asJson()
             ->get();
-        return $response->publicKey;
+        return $response;
     }
 
     public function createWallet($label)
@@ -57,8 +57,7 @@ class Glp {
             Wallet::create([
                 'user_id' => Auth::id(),
                 'label' => $label,
-                // 'address' => $this->myWallet($response->http_port_endpoint),
-                'address' => 'NULL',
+                'address' => $this->myWallet($response->http_port_endpoint),
                 'port' => $params['userid'],
                 'p2p' => $params['p2p'],
                 'endpoind_port' => $response->http_port_endpoint,
