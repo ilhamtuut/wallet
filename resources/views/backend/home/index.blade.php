@@ -88,8 +88,8 @@
             type: "GET",
             contentType: "application/json",
             success: function (data) {
+                $('#body-block').children().remove();
                 if(data.length > 0 ){
-                    $('#body-block').children().remove();
                     $.each(data, function (i,item) {
                         $('#body-block').append(
                             '<tr>'+
@@ -111,8 +111,8 @@
             type: "GET",
             contentType: "application/json",
             success: function (data) {
+                $('#body-transactions').children().remove();
                 if(data.length > 0 ){
-                    $('#body-transactions').children().remove();
                     $.each(data, function (i,item) {
                         $('#body-transactions').append(
                             '<tr>'+
