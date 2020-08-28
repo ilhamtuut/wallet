@@ -40,7 +40,6 @@ class Glp {
             ->withHeader('Content-Type: application/json')
             ->asJson()
             ->get();
-        dd($response,$url);
         return $response->publicKey;
     }
 
