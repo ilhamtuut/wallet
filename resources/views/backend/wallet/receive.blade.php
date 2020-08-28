@@ -49,21 +49,21 @@
                         </thead>
                         <tbody>
                             @if($wallet)
-                            <tr>
-                                <td width="50%" style="line-break: anywhere;">{{$wallet->address}}</td>
-                                <td width="15%">{{$wallet->label}}</td>
-                                <td width="25%">{{$balance}} GLP</td>
-                                <td width="10%" class="text-center">
-                                    <div class="btn-group">
-                                        <a href="#" data-toggle="dropdown" class="btn btn-info dropdown-toggle">Action <span class="caret"></span></a>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a href="#" data-toggle="modal" data-target="#modal_label">Change Label</a></li>
-                                            <li><a href="#" data-toggle="modal" data-target="#modal_qrcode">QR-Code</a></li>                     
-                                            {{-- <li><a href="#">Show Public Key</a></li>--}}
-                                        </ul>
-                                    </div>
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td width="50%" style="line-break: anywhere;">{{$wallet->address}}</td>
+                                    <td width="15%">{{$wallet->label}}</td>
+                                    <td width="25%">{{$balance}} GLP</td>
+                                    <td width="10%" class="text-center">
+                                        <div class="btn-group">
+                                            <a href="#" data-toggle="dropdown" class="btn btn-info dropdown-toggle">Action <span class="caret"></span></a>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li><a href="#" data-toggle="modal" data-target="#modal_label">Change Label</a></li>
+                                                <li><a href="#" data-toggle="modal" data-target="#modal_qrcode">QR-Code</a></li>                     
+                                                {{-- <li><a href="#">Show Public Key</a></li>--}}
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
                             @else
                                 <tr>
                                     <td colspan="4" class="text-center">You don't have any addresses.</td>

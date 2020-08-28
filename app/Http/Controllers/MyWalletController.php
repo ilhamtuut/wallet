@@ -78,7 +78,7 @@ class MyWalletController extends Controller
     public function receive(Request $request)
     {    
         $wallet = Auth::user()->wallet;
-        if($wallet){
+        if($wallet && $wallet->address != 'NULL'){
             $balance = number_format(Glp::balance());
             $renderer = new \BaconQrCode\Renderer\Image\Png();
             $renderer->setWidth(200);
