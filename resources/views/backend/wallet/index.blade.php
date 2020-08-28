@@ -51,7 +51,7 @@
                         <h3><b>Your Wallet</b></h3>
                         <div class="text-center">
                             <img src="{{$qrCode}}" alt="qrcode">
-                            <p>This is your GLP address</p>
+                            <p>Your GLP address</p>
                             <h5><b style="line-break: anywhere;">{{$address}}</b></h5>
                             <button type="button" class="btn btn-primary mb" onclick="copyToClipboard('{{$address}}')"><i class="fa fa-copy"></i> Copy Address</button>
                             <p>You can deposit GLP to the address above to start using your online wallet.</p>
