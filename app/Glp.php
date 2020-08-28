@@ -40,7 +40,7 @@ class Glp {
             ->withHeader('Content-Type: application/json')
             ->asJson()
             ->get();
-        return $response;
+        return $response->publicKey;
     }
 
     public function createWallet($label)
