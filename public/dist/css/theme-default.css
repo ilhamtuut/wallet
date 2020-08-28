@@ -4929,7 +4929,8 @@ label.valid {
   border: 1px solid #E5E5E5;
   padding: 0px;
   margin: 8px 0px 0px;
-  min-width: 200px;
+  min-width: 150px;
+  left: -75px;
 }
 .dropdown-menu > li > a {
   padding: 8px 15px;
@@ -4938,6 +4939,9 @@ label.valid {
 }
 .dropdown-menu > li:last-child > a {
   border-bottom: 0px;
+}
+.dropdown-backdrop {
+  display: none;
 }
 .dropdown-menu:after,
 .dropdown-menu:before {
@@ -11229,6 +11233,9 @@ li.ext_zip {
 @media (max-width: 767px) {
     .table-responsive .dropdown-menu {
         position: static !important;
+    }
+    .dropdown-menu:after, .dropdown-menu:before{
+      bottom:65.5%;
     }
 }
 @media (min-width: 768px) {
