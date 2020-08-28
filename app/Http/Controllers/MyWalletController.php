@@ -70,14 +70,20 @@ class MyWalletController extends Controller
         ]);
         $recipient = $request->destination;
         $amount = $request->amount;
-        Glp::transaction($recipient, $amount);
-        $request->session()->flash('success', 'Successfully, send money.');
-        return redirect()->back();
+        $wallet = Auth::user()->wallet;
+        if($wallet && $wallet->address != 'NULL'){
+            Glp::transaction($recipient, $amount);
+            $request->session()->flash('success', 'Successfully, send money.');
+            return redirect()->back();
+        }else{
+            return redirect()->route('wallet.index');
+        }
     }
 
     public function receive(Request $request)
     {    
         $wallet = Auth::user()->wallet;
+        dd($wallet && $wallet->address != 'NULL',$wallet, $wallet->address != 'NULL');
         if($wallet && $wallet->address != 'NULL'){
             $balance = number_format(Glp::balance());
             $renderer = new \BaconQrCode\Renderer\Image\Png();
