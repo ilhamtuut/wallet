@@ -65,9 +65,10 @@ class Glp {
 
     public function myWallet()
     {
+        // mywallet to public-key
         $wallet = Auth::user()->wallet;
         $url = $wallet->endpoind_port;
-        $response = Curl::to($url.'/mywallet')
+        $response = Curl::to($url.'/public-key')
             ->withHeader('Content-Type: application/json')
             ->asJson()
             ->get();
