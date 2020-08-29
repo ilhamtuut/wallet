@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Auth;
 use App\Wallet;
+use App\Transaction;
 use App\Facades\Glp;
 use Illuminate\Http\Request;
 
@@ -72,7 +73,12 @@ class MyWalletController extends Controller
         $amount = $request->amount;
         $wallet = Auth::user()->wallet;
         if($wallet && $wallet->address != 'NULL'){
-            Glp::transaction($recipient, $amount);
+            $response = Glp::transaction($recipient, $amount);
+            // Transaction::create([
+            //     'user_id' => Auth::id(),
+            //     'hash' => $response[0]->id,
+            //     'data' => json_encode($response)
+            // ]);
             $request->session()->flash('success', 'Successfully, send money.');
             return redirect()->back();
         }else{

@@ -99,6 +99,7 @@ class Glp {
                 'recipient' => $recipient,
                 'amount' => round($amount,8)
             ])
+            ->allowRedirect()
             ->withHeader('Content-Type: application/json')
             ->asJson()
             ->post();
