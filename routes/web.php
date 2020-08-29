@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/blocks', 'HomeController@blocks')->name('blocks');
@@ -22,7 +22,7 @@ Route::get('/tx/{hash}', ['as' => 'explorer.hash', 'uses' => 'ExplorerController
 Route::get('/block/{hash}', ['as' => 'explorer.block', 'uses' => 'ExplorerController@block']);
 Route::get('/address/{address}', ['as' => 'explorer.address', 'uses' => 'ExplorerController@address']);
 
-Route::group(['middleware' => ['auth']], function() {
+Route::group(['middleware' => ['auth','verified']], function() {
 	Route::group(['prefix' => 'wallet', 'as' => 'wallet.'], function() {
 	  	Route::get('/', ['as' => 'index', 'uses' => 'MyWalletController@index']);
 	  	Route::get('/show_wallet', ['as' => 'show_wallet', 'uses' => 'MyWalletController@show_wallet']);
