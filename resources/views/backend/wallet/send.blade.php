@@ -58,7 +58,7 @@
                             </div>                                            
                         </div> --}}
                         <div class="form-group">
-                            <button class="btn btn-primary">Send Money</button>                                          
+                            <button class="btn btn-primary">Send Coin</button>                                          
                         </div>
                     </form>
                 </div>
