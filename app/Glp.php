@@ -97,10 +97,9 @@ class Glp {
         $response = Curl::to($url.'/transact')
             ->withData([
                 'recipient' => $recipient,
-                'amount' => $amount
+                'amount' => round($amount,8)
             ])
             ->withHeader('Content-Type: application/json')
-            ->allowRedirect()
             ->asJson()
             ->post();
         return $response;
