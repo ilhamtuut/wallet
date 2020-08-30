@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Auth::routes(['verify' => true]);
+if (App::environment('production')) {
+	URL::forceScheme('https');
+}
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/blocks', 'HomeController@blocks')->name('blocks');
