@@ -84,7 +84,7 @@
 
     function loadData(){
         $.ajax({
-            url: "https://dashboard.greenlineproject.tech/blocks",
+            url: "{{env('APP_URL')}}/blocks",
             type: "GET",
             contentType: "application/json",
             success: function (data) {
@@ -107,7 +107,7 @@
         });
 
         $.ajax({
-            url: "https://dashboard.greenlineproject.tech/transactions",
+            url: "{{env('APP_URL')}}/transactions",
             type: "GET",
             contentType: "application/json",
             success: function (data) {
