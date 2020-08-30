@@ -84,7 +84,7 @@
 
     function loadData(){
         $.ajax({
-            url: "{{url('blocks')}}",
+            url: "{{route('blocks')}}",
             type: "GET",
             contentType: "application/json",
             success: function (data) {
@@ -107,7 +107,7 @@
         });
 
         $.ajax({
-            url: "{{url('transactions')}}",
+            url: "{{route('transactions')}}",
             type: "GET",
             contentType: "application/json",
             success: function (data) {
