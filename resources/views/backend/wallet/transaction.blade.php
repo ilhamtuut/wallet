@@ -19,16 +19,24 @@
                         <thead class="bg-primary">
                             <tr>
                                 <th>Hash</th>
-                                <th>Status</th>
-                                <th>Amount</th>
+                                {{-- <th>Status</th> --}}
+                                <th class="text-right">Amount</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td colspan="3" class="text-center">You haven't got any transactions yet.</td>
-                            </tr>
+                            @forelse($data as $value)
+                                <tr>
+                                    <td><a href="#">{{$value->hash}}</a></td>
+                                    <td class="text-right">{{number_format($value->amount)}} GLP</td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="2" class="text-center">You haven't got any transactions yet.</td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table> 
+                    {{$data->render()}}
                 </div>
             </div>
         </div>

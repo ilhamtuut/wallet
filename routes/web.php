@@ -25,12 +25,12 @@ Route::get('/address/{address}', ['as' => 'explorer.address', 'uses' => 'Explore
 Route::group(['middleware' => ['auth','verified']], function() {
 	Route::group(['prefix' => 'wallet', 'as' => 'wallet.'], function() {
 	  	Route::get('/', ['as' => 'index', 'uses' => 'MyWalletController@index']);
-	  	Route::get('/show_wallet', ['as' => 'show_wallet', 'uses' => 'MyWalletController@show_wallet']);
 	  	Route::get('/transaction', ['as' => 'transaction', 'uses' => 'MyWalletController@transaction']);
 	  	Route::get('/send', ['as' => 'send', 'uses' => 'MyWalletController@send']);
 	  	Route::get('/receive', ['as' => 'receive', 'uses' => 'MyWalletController@receive']);
-	  	Route::post('/updateLabel', ['as' => 'updateLabel', 'uses' => 'MyWalletController@updateLabel']);
+	  	Route::post('/updateLabel/{id}', ['as' => 'updateLabel', 'uses' => 'MyWalletController@updateLabel']);
 	  	Route::post('/sendCoin', ['as' => 'sendCoin', 'uses' => 'MyWalletController@sendCoin']);
+	  	Route::post('/createWallet', ['as' => 'createWallet', 'uses' => 'MyWalletController@createWallet']);
 	});
 
 	Route::group(['prefix' => 'account', 'as' => 'account.'], function() {

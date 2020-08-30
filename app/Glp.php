@@ -12,75 +12,41 @@ use Illuminate\Support\Facades\Crypt;
 
 class Glp {
 
-    private $host = 'http://mumbai.solusi.cloud:3001/';
-    private $_host = 'http://mumbai.solusi.cloud:8000/';
-    // list API ['blocks (GET)','transactions (GET)','mywallet (GET)','transact (POST)','mine (POST)','balance (GET)', 'mine-transactions (GET)','peers (GET)']
-
-    public function blocks()
-    {
-        $response = Curl::to($this->host.'blocks')
-            ->withHeader('Content-Type: application/json')
-            ->asJson()
-            ->get();
-        return $response;
-    }
-
-    public function transactions()
-    {
-        $response = Curl::to($this->host.'transactions')
-            ->withHeader('Content-Type: application/json')
-            ->asJson()
-            ->get();
-        return $response;
-    }
+    private $host = 'http://mumbai.solusi.cloud:3001/operator/';
 
     public function createWallet($label)
     {
-        $params = $this->generatePort();
-        $response = Curl::to($this->_host)
-            ->withData($params)
+        $password = $this->generatePass();
+        // get addresID
+        $response = Curl::to($this->host.'wallets')
+            ->withData([
+                'password' => $password
+            ])
             ->withHeader('Content-Type: application/json')
             ->asJson()
             ->post();
-        $return = false;
-        $res = json_encode($response);
-        if(Str::contains($res, 'http_port_endpoint')){
-            $wallet = Wallet::create([
-                'user_id' => Auth::id(),
-                'label' => $label,
-                'address' => 'NULL',
-                'port' => $params['userid'],
-                'p2p' => $params['p2p'],
-                'endpoind_port' => $response->http_port_endpoint,
-                'endpoind_p2p' => $response->p2p_server,
-                'description' => 'Greenline Project'
-            ]);
-            // $this->myWallet($wallet->endpoind_port);
-            // $wallet->address = $this->myWallet($response->http_port_endpoint);
-            // $wallet->save();
-            $return = true;
-        }
-        return $return;
-    }
+        $addressID = $response->id;
 
-    public function myWallet()
-    {
-        // mywallet to public-key
-        $wallet = Auth::user()->wallet;
-        $url = $wallet->endpoind_port;
-        $response = Curl::to($url.'/public-key')
-            ->withHeader('Content-Type: application/json')
+        // create address wallet
+        $create = Curl::to($this->host.'wallets/'.$addressID.'/addresses')
+            ->withHeader('password: '.$password)
             ->asJson()
-            ->get();
-        Wallet::where('user_id',Auth::id())->update(['address' => $response->publicKey]);
-        return true;
+            ->post();
+
+        $wallet = Wallet::create([
+            'user_id' => Auth::id(),
+            'label' => $label,
+            'addressID' => $addressID,
+            'address' => $create->address,
+            'password' => $password,
+            'description' => 'Greenline Project'
+        ]);
+        return $wallet;
     }
 
-    public function balance()
+    public function balance($address)
     {
-        // $url = Auth::user()->wallet->endpoind_port;
-        $url = Wallet::where('user_id',Auth::id())->first()->endpoind_port;
-        $response = Curl::to($url.'/balance')
+        $response = Curl::to($this->host.$address.'/balance')
             ->withHeader('Content-Type: application/json')
             ->asJson()
             ->get();
@@ -91,41 +57,65 @@ class Glp {
         return $balance;
     }
 
-    public function transaction($recipient, $amount)
+    public function transaction($fromAddress, $toAddress, $amount)
     {   
-        $url = Wallet::where('user_id',Auth::id())->first()->endpoind_port;
-        $response = Curl::to($url.'/transact')
+        $wallet = Wallet::where('address',$fromAddress)->first();
+        $addressID = $wallet->addressID;
+        $password = $wallet->password;
+        $fromAddress = $wallet->address;
+        $response = Curl::to($this->host.'wallets/'.$addressID.'/transactions')
             ->withData([
-                'recipient' => $recipient,
-                'amount' => round($amount,8)
+                'fromAddress' => $fromAddress,
+                'toAddress' => $toAddress,
+                'amount' => $amount
             ])
-            ->allowRedirect()
-            ->withHeader('Content-Type: application/json')
+            ->withHeader('password: '.$password)
             ->asJson()
             ->post();
+        $return = false;
+        if($response){
+            $data = Transaction::create([
+                'user_id' => Auth::id(),
+                'hash' => $response->id,
+                'amount' => $amount,
+                'data' => json_encode($response)
+            ]);
+            $return = true;
+        }
+        return $return;
+    }
+
+    public function generatePass()
+    {
+        $password = '';
+        for ($i=0; $i < 5; $i++) { 
+            $word = Str::random(4);
+            $password .= $word . ' ';
+        }
+        return substr($password, 0, -1);
+    }
+
+    public function blocks()
+    {
+        $response = [];
         return $response;
     }
 
-    private function generatePort()
+    public function transactions()
     {
-        # range port => not port (8000/2233) (3010 - 65535)
-        $port = 3010;
-        $p2p = 5010;
-        $wallet = Wallet::orderBy('id','desc')->first();
-        if($wallet){
-            $port = $wallet->port + 1;
-            $p2p = $wallet->p2p + 1;
+        $response = [];
+        return $response;
+    }
 
-            if($port == 8000 || $port == 2233){
-                $port = $port + 1;
-            }
-        }
-
-        $data = array(
-            'email' => Auth::user()->email,
-            'userid' => $port, 
-            'p2p' => $p2p
-        );
-        return $data;
+    public function qrCode($address)
+    {
+        $renderer = new \BaconQrCode\Renderer\Image\Png();
+        $renderer->setWidth(200);
+        $renderer->setHeight(200);
+        $encoding = 'utf-8';
+        $bacon = new \BaconQrCode\Writer($renderer);
+        $data = $bacon->writeString($address, $encoding);
+        $qrCode = 'data:image/png;base64,'.base64_encode($data);
+        return $qrCode;
     }
 }
