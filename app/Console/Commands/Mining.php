@@ -47,6 +47,6 @@ class Mining extends Command
             ->withHeader('Content-Type: application/json')
             ->asJson()
             ->post();
-        return $response;
+        echo "Success\n";
     }
 }
