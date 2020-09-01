@@ -44,15 +44,16 @@ class ExplorerController extends Controller
     public function search(Request $request)
     {
         $search = $request->search;
+        if($search){
+            $address = Glp::checkAddress($search);
+            if($address){
+                return redirect()->route('explorer.address', $search);
+            }
 
-        $address = Glp::checkAddress($search);
-        if($address){
-            return redirect()->route('explorer.address', $search);
-        }
-
-        $hash = Glp::detailBlock($search);
-        if($hash){
-            return redirect()->route('explorer.block', $search);
+            $hash = Glp::detailBlock($search);
+            if($hash){
+                return redirect()->route('explorer.block', $search);
+            }
         }
 
         return view('backend.explorer.search');
