@@ -17,7 +17,7 @@
                         @csrf
                         <div class="form-group">
                             <label class="control-label">Search by address, block number or hash, transaction:</label>
-                            <input name="search" type="text" class="form-control">
+                            <input name="q" type="text" class="form-control">
                         </div>
                         <div class="form-group">
                             <button class="btn btn-primary" type="submit">Search</button>                        
