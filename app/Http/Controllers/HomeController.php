@@ -32,7 +32,8 @@ class HomeController extends Controller
             ->get();
         $glp_btc = number_format($response,8);
         $block = Glp::count();
-        return view('backend.home.index',compact('glp_btc','block'));
+        $difficulty = Glp::difficulty();
+        return view('backend.home.index',compact('glp_btc','block','difficulty'));
     }
 
     public function blocks(Request $request)

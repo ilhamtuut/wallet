@@ -154,6 +154,15 @@ class Glp {
         return $response;
     }
 
+    public function difficulty()
+    {
+        $response = Curl::to($this->host.'blockchain/difficulty')
+            ->withHeader('Content-Type: application/json')
+            ->asJson()
+            ->get();
+        return $response;
+    }
+
     public function qrCode($address)
     {
         $renderer = new \BaconQrCode\Renderer\Image\Png();
