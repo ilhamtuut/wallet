@@ -24,7 +24,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('sendmail:start')
+        $schedule->command('mining:start')
                 ->everyFourHours()
                 ->withoutOverlapping();
     }
