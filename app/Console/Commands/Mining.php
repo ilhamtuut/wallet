@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Block;
 use Ixudra\Curl\Facades\Curl;
 use Illuminate\Console\Command;
 
@@ -47,6 +48,10 @@ class Mining extends Command
             ->withHeader('Content-Type: application/json')
             ->asJson()
             ->post();
-        \Log::info('Mining start in '.date('Y-m-d H:i:s'));
+        Block::create([
+            'hash' => $address,
+            'data' => json_encode($response)
+        ]);
+        // \Log::info('Mining start in '.date('Y-m-d H:i:s'));
     }
 }

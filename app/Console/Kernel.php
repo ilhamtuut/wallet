@@ -25,7 +25,8 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('mining:start')
-                ->everyFourHours()
+                ->everyFiveMinutes()
+                // ->everyFourHours()
                 ->withoutOverlapping();
     }
 
