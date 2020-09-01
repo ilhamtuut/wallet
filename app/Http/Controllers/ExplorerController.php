@@ -26,12 +26,30 @@ class ExplorerController extends Controller
     public function block(Request $request, $hash)
     {
         $data = Glp::detailBlock($hash);
-        return view('backend.explorer.block', compact('data'));
+        if($data){
+            return view('backend.explorer.block', compact('data'));
+        }else{
+            return redirect('/');
+        }
     }
 
     public function hash(Request $request, $hash)
     {
-        return view('backend.explorer.hash');
+        $data = Glp::detailTransactions($hash);
+        if($data){
+            $in = 0;
+            $out = 0;
+            foreach ($data->data->inputs as $key => $value) {
+                $in += $value->amount;
+            }
+            foreach ($data->data->outputs as $key => $value) {
+                $out += $value->amount;
+            }
+            $size = mb_strlen(json_encode($data, JSON_NUMERIC_CHECK), '8bit');
+            return view('backend.explorer.hash', compact('data','size','in','out'));
+        }else{
+            return redirect('/');
+        }
     }
 
     public function address(Request $request, $address)
@@ -53,6 +71,11 @@ class ExplorerController extends Controller
             $hash = Glp::detailBlock($search);
             if($hash){
                 return redirect()->route('explorer.block', $search);
+            }
+
+            $trans = Glp::detailTransactions($search);
+            if($trans){
+                return redirect()->route('explorer.hash', $search);
             }
         }
 

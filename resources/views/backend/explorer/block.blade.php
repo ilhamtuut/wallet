@@ -61,7 +61,7 @@
                         <tbody>
                             @foreach ($data->transactions as $key => $value)
                                 <tr>
-                                    <td><a href="javascript:void();">{{substr_replace($value->hash, '...', 8, strlen($value->hash) - 8 ).substr_replace($value->hash, '', 0, strlen($value->hash) - 8 )}}</a></td>
+                                    <td><a href="{{route('explorer.hash',$value->id)}}">{{substr_replace($value->id, '...', 8, strlen($value->id) - 8 ).substr_replace($value->id, '', 0, strlen($value->id) - 8 )}}</a></td>
                                     <td>{{ucfirst($value->type)}}</td>
                                     <td>
                                     @forelse ($value->data->inputs as $key => $val)

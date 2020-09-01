@@ -26,7 +26,7 @@
                         <tbody>
                             @forelse($data as $value)
                                 <tr>
-                                    <td><a href="javascript:void();">{{$value->hash}}</a></td>
+                                    <td><a href="{{route('explorer.hash',$value->hash)}}">{{$value->hash}}</a></td>
                                     <td class="text-right">{{number_format($value->amount,7)}}</td>
                                 </tr>
                             @empty

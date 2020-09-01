@@ -124,8 +124,7 @@
                     $.each(data, function (i,item) {
                         $('#body-transactions').append(
                             '<tr>'+
-                                '<td><a href="javascript:void();">'+ item.hash +'</a></td>'+
-                                // '<td><a href="{{url('tx')}}/'+item.hash+'">'+ item.hash +'</a></td>'+
+                                '<td><a href="{{url('tx')}}/'+item.id+'">'+ item.id +'</a></td>'+
                                 '<td>'+ capitalizeFirstLetter(item.type) +'</td>'+
                                 '<td>'+ addCommas(item.data.inputs.length) +'</td>'+
                                 '<td>'+ addCommas(item.data.outputs.length) +'</td>'+

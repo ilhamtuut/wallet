@@ -145,6 +145,23 @@ class Glp {
         return $response;
     }
 
+    public function detailTransactions($hash)
+    {
+        $response = Curl::to($this->host.'blockchain/blocks/transactions/'.$hash)
+            ->withHeader('Content-Type: application/json')
+            ->asJson()
+            ->get();
+        $data = null;
+        if($response){
+            foreach ($response->transactions as $key => $value) {
+                if($value->id == $hash){
+                    $data = $value;
+                }
+            }
+        }
+        return $data;
+    }
+
     public function count()
     {
         $response = Curl::to($this->host.'blockchain/count')
