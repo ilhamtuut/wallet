@@ -79,9 +79,9 @@ class MyWalletController extends Controller
         if($cekAddress){
             $response = Glp::transaction($fromAdddres, $toAdddres, $amount);
             if($response){
-                $request->session()->flash('success', 'Successfully, send money.');
+                $request->session()->flash('success', 'Successfully, send coin.');
             }else{
-                $request->session()->flash('failed', 'Failed, send money. Please check your balance or address.');
+                $request->session()->flash('failed', 'Failed, send coin. Please check your balance or address.');
             }
         }else{
             $request->session()->flash('failed', 'Failed, Invalid destination address.');
