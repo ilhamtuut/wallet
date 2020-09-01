@@ -111,7 +111,7 @@ class Glp {
 
     public function blocks()
     {
-        $response = Curl::to($this->host.'blockchain/blocks')
+        $response = Curl::to($this->host.'blockchain/blocks/desc')
             ->withHeader('Content-Type: application/json')
             ->asJson()
             ->get();
