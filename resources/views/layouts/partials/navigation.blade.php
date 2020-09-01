@@ -16,6 +16,9 @@
             <a href="{{route('register')}}"><span class="fa fa-pencil-square-o"></span> <span class="xn-text">Register</span></a>
         </li>
     @else
+        <li class="{{ isset($page) && $page == 'home' ? 'active' : '' }}">
+            <a href="{{route('home')}}"><span class="fa fa-globe"></span> <span class="xn-text">GLP Explorer</span></a>
+        </li>
         <li class="{{ isset($page) && $page == 'my_wallet' ? 'active' : '' }}">
             <a href="{{route('wallet.index')}}"><span class="fa fa-credit-card"></span> <span class="xn-text">My Wallet</span></a>
         </li>
@@ -40,5 +43,10 @@
         <li class="xn-icon-button pull-right last">
             <a href="#" class="mb-control" data-box="#mb-signout"><span class="fa fa-sign-out"></span> Log Out</a>
         </li> 
+        <li class="xn-search pull-right">
+            <form role="form" id="form-search" action="{{route('explorer.search')}}">
+                <input type="text" name="search" placeholder="Search..."/>
+            </form>
+        </li>
     @endguest
 </ul>
