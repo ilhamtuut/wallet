@@ -53,7 +53,7 @@
                                     <tr>
                                         <td width="50%" style="line-break: anywhere;">{{$value->address}}</td>
                                         <td width="15%">{{$value->label}}</td>
-                                        <td width="25%">{{number_format(App\Facades\Glp::balance($value->address))}} GLP</td>
+                                        <td width="25%">{{App\Facades\Glp::balance($value->address)}} GLP</td>
                                         <td width="10%" class="text-center">
                                             <div class="btn-group">
                                                 <a href="#" data-toggle="dropdown" class="btn btn-info dropdown-toggle">Action <span class="caret"></span></a>

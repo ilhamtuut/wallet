@@ -21,6 +21,7 @@ Route::get('/api', ['as' => 'api.index', 'uses' => 'ApiController@index']);
 Route::get('/tx/{hash}', ['as' => 'explorer.hash', 'uses' => 'ExplorerController@hash']);
 Route::get('/block/{hash}', ['as' => 'explorer.block', 'uses' => 'ExplorerController@block']);
 Route::get('/address/{address}', ['as' => 'explorer.address', 'uses' => 'ExplorerController@address']);
+Route::get('/search', ['as' => 'explorer.search', 'uses' => 'ExplorerController@search']);
 
 Route::group(['middleware' => ['auth','verified']], function() {
 	Route::group(['prefix' => 'wallet', 'as' => 'wallet.'], function() {

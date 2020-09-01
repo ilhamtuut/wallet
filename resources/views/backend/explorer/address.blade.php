@@ -4,23 +4,27 @@
     <div class="col-md-12">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title">Address A2udJWsW1vJBvoAdD96Y8BnmxqCoLq78Y3</h3>
+                <h3 class="panel-title" style="line-break: anywhere;">Address {{$address}}</h3>
             </div>
             <div class="panel-body">
                 <div class="row mb">
-                    <div class="col-md-8">
+                    <div class="col-md-7">
+                        <div class="text-center">
+                            <img src="{{$qrCode}}" alt="qrcode"> <br>
+                            <a href="{{route('login')}}" class="btn btn-success mb">Send Greenline Project Coin</a>
+                        </div>
                         <div class="table-responsive">
                             <table class="table table-bordered">
                                 <tbody>
                                     <tr>
                                         <td>Hash</td>
-                                        <td>A2udJWsW1vJBvoAdD96Y8BnmxqCoLq78Y3</td>
+                                        <td>{{$address}}</td>
                                     </tr>
                                     <tr>
                                         <td>Balance</td>
-                                        <td>3,721,723.32246807 GLP</td>
+                                        <td>{{$balance}} GLP</td>
                                     </tr>
-                                    <tr>
+                                    {{-- <tr>
                                         <td>Transactions received</td>
                                         <td>23,919</td>
                                     </tr>
@@ -35,19 +39,18 @@
                                     <tr>
                                         <td>Sent</td>
                                         <td>55,874,699,412.96253801 GLP</td>
-                                    </tr>
+                                    </tr> --}}
                                 </tbody>
                             </table> 
                         </div>
                     </div>
-                    <div class="col-md-4 text-center">
-                        <img src="{{$qrCode}}" alt="qrcode">
-                        <h5><b>{{$address}}</b></h5>
-                        <button class="btn btn-success">Copy Address <i class="fa fa-copy"></i></button>
+                    <div class="col-md-5 text-center">
+                        {{-- <img src="{{$qrCode}}" alt="qrcode"> <br>
+                        <button class="btn btn-success mb">Send Greenline Project Coin</button> --}}
                     </div>
                 </div>
                 
-                <div class="row">
+                {{-- <div class="row">
                     <div class="col-md-12">
                         <h2><b>Transactions</b></h2>
                         <div class="table-responsive">
@@ -80,7 +83,7 @@
                             </table> 
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>

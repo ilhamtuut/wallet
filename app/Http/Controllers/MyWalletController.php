@@ -35,14 +35,8 @@ class MyWalletController extends Controller
         }else{
             $address = $wallet->address;
         }
-        $balance = number_format(Glp::balance($address));
-        $renderer = new \BaconQrCode\Renderer\Image\Png();
-        $renderer->setWidth(200);
-        $renderer->setHeight(200);
-        $encoding = 'utf-8';
-        $bacon = new \BaconQrCode\Writer($renderer);
-        $data = $bacon->writeString($address, $encoding);
-        $qrCode = 'data:image/png;base64,'.base64_encode($data);
+        $balance = Glp::balance($address);
+        $qrCode = Glp::qrCode($address);
         
         return view('backend.wallet.index',compact('qrCode','address','balance'));
     }
@@ -81,11 +75,16 @@ class MyWalletController extends Controller
         $toAdddres = $request->destination;
         $amount = $request->amount;
         $wallet = Auth::user()->wallet;
-        $response = Glp::transaction($fromAdddres, $toAdddres, $amount);
-        if($response){
-            $request->session()->flash('success', 'Successfully, send money.');
+        $cekAddress = Glp::checkAddress($toAdddres);
+        if($cekAddress){
+            $response = Glp::transaction($fromAdddres, $toAdddres, $amount);
+            if($response){
+                $request->session()->flash('success', 'Successfully, send money.');
+            }else{
+                $request->session()->flash('failed', 'Failed, send money. Please check your balance or address.');
+            }
         }else{
-            $request->session()->flash('failed', 'Failed, send money. Please check your balance or address.');
+            $request->session()->flash('failed', 'Failed, Invalid destination address.');
         }
         return redirect()->back();
     }

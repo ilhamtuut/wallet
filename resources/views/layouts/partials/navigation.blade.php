@@ -32,7 +32,7 @@
 
     @guest
         <li class="xn-search pull-right">
-            <form role="form" id="form-search">
+            <form role="form" id="form-search" action="{{route('explorer.search')}}">
                 <input type="text" name="search" placeholder="Search..."/>
             </form>
         </li>

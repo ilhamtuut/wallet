@@ -26,8 +26,8 @@
                         <tbody>
                             @forelse($data as $value)
                                 <tr>
-                                    <td><a href="#">{{$value->hash}}</a></td>
-                                    <td class="text-right">{{number_format($value->amount)}} GLP</td>
+                                    <td><a href="javascript:void();">{{$value->hash}}</a></td>
+                                    <td class="text-right">{{number_format($value->amount * 0.0000001,7)}}</td>
                                 </tr>
                             @empty
                                 <tr>

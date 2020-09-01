@@ -9,13 +9,13 @@
     </div>
     <div class="col-md-4">
         <div class="widget widget-default widget-no-subtitle">
-            <div class="widget-big-int"><span class="num-count">4,381</span></div>                            
-            <div class="widget-subtitle">Current difficulty</div>                         
+            <div class="widget-big-int"><span class="num-count" id="transactions"><i class="fa fa-spinner fa-spin"></i></span></div>                            
+            <div class="widget-subtitle">Current transactions</div>                         
         </div>                        
     </div>
     <div class="col-md-4">
         <div class="widget widget-default widget-no-subtitle">
-            <div class="widget-big-int"><span class="num-count">4,381</span></div>                            
+            <div class="widget-big-int"><span class="num-count" id="blockCount"><i class="fa fa-spinner fa-spin"></i></span></div>                            
             <div class="widget-subtitle">Blocks in chain</div>                         
         </div>                    
     </div>
@@ -35,7 +35,7 @@
                                 <th>Block</th>
                                 <th>Time</th>
                                 <th>Nonce</th>
-                                <th>Difficulty</th>
+                                <th>Transactions</th>
                             </tr>
                         </thead>
                         <tbody id="body-block">
@@ -61,12 +61,14 @@
                         <thead class="bg-primary">
                             <tr>
                                 <th>Hash</th>
-                                <th>Amount</th>
+                                <th>Type</th>
+                                <th>Inputs</th>
+                                <th>Outputs</th>
                             </tr>
                         </thead>
                         <tbody id="body-transactions">
                             <tr>
-                                <td colspan="2" class="text-center"><i class="fa fa-spinner fa-spin"></i></td>
+                                <td colspan="4" class="text-center"><i class="fa fa-spinner fa-spin"></i></td>
                             </tr>
                         </tbody>
                     </table> 
@@ -82,6 +84,7 @@
         setTimeout(loadData(), 1000);
     });
 
+    var transactions = 0;
     function loadData(){
         $.ajax({
             url: "{{env('APP_URL')}}/blocks",
@@ -90,15 +93,18 @@
             success: function (data) {
                 $('#body-block').children().remove();
                 if(data.length > 0 ){
+                    $('#blockCount').html(addCommas(data.length));
                     $.each(data, function (i,item) {
+                        transactions += item.transactions.length;
                         $('#body-block').append(
                             '<tr>'+
                                 '<td><a href="{{url('block')}}/'+item.hash+'">'+ item.hash +'</a></td>'+
-                                '<td>'+ timeConverter(item.timestamp) +'</td>'+
-                                '<td>'+ item.nonce +'</td>'+
-                                '<td>'+ item.difficulty +'</td>'+
+                                '<td>'+ timeConverter(item.timestamp * 1000) +'</td>'+
+                                '<td>'+ addCommas(item.nonce) +'</td>'+
+                                '<td>'+ addCommas(item.transactions.length) +'</td>'+
                             '</tr>');
                     });
+                    $('#transactions').html(addCommas(transactions));
                 }else{
                     $('#body-block').append('<tr><td colspan="4" class="text-center">No blocks.</td></tr>');
                 }
@@ -116,49 +122,19 @@
                     $.each(data, function (i,item) {
                         $('#body-transactions').append(
                             '<tr>'+
-                                '<td><a href="{{url('tx')}}/'+item.id+'">'+ item.id +'</a></td>'+
-                                '<td>'+ addCommas(item.input.amount) +' GLP</td>'+
+                                '<td><a href="javascript:void();">'+ item.hash +'</a></td>'+
+                                // '<td><a href="{{url('tx')}}/'+item.hash+'">'+ item.hash +'</a></td>'+
+                                '<td>'+ capitalizeFirstLetter(item.type) +'</td>'+
+                                '<td>'+ addCommas(item.data.inputs.length) +'</td>'+
+                                '<td>'+ addCommas(item.data.outputs.length) +'</td>'+
                             '</tr>');
                     });
                 }else{
-                    $('#body-transactions').append('<tr><td colspan="2" class="text-center">No transactions.</td></tr>');
+                    $('#body-transactions').append('<tr><td colspan="4" class="text-center">No transactions.</td></tr>');
                 }
             },
             cache: false
         });
-    }
-
-    function timeConverter(UNIX_timestamp){
-        var a = new Date(UNIX_timestamp);
-        if(a.isValid()){
-            var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-            var year = a.getFullYear();
-            var month = months[a.getMonth()];
-            var date = a.getDate();
-            var hour = a.getHours();
-            var min = a.getMinutes();
-            var sec = a.getSeconds();
-            var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
-        }else{
-            var time = '-';
-        }
-        return time;
-    }
-
-    Date.prototype.isValid = function () {
-        return this.getTime() === this.getTime();
-    }; 
-
-    function addCommas(nStr) {
-        nStr += '';
-        x = nStr.split('.');
-        x1 = x[0];
-        x2 = x.length > 1 ? '.' + x[1] : '';
-        var rgx = /(\d+)(\d{3})/;
-        while (rgx.test(x1)) {
-            x1 = x1.replace(rgx, '$1' + ',' + '$2');
-        }
-        return x1 + x2;
     }
 </script>
 @endsection

@@ -38,7 +38,7 @@
                 <p>Use the form below to send coins to another address.</p>
                 <div class="col-md-6">
                     <div class="alert alert-warning">
-                        NOTE : Minimum balance settles 1 GLP.
+                        NOTE : Minimum balance settles 1.0000000 GLP.
                     </div>
                     <form action="{{route('wallet.sendCoin')}}" method="POST">
                         @csrf
