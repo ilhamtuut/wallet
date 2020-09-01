@@ -47,6 +47,6 @@ class Mining extends Command
             ->withHeader('Content-Type: application/json')
             ->asJson()
             ->post();
-        echo "Success\n";
+        \Log::info('Mining start in '.date('Y-m-d H:i:s'));
     }
 }
