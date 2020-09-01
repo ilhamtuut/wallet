@@ -43,7 +43,7 @@ class ExplorerController extends Controller
 
     public function search(Request $request)
     {
-        $search = $request->search;
+        $search = $request->q;
         if($search){
             $address = Glp::checkAddress($search);
             if($address){

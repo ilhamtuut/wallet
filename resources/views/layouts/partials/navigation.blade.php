@@ -36,7 +36,7 @@
     @guest
         <li class="xn-search pull-right">
             <form role="form" id="form-search" action="{{route('explorer.search')}}">
-                <input type="text" name="search" placeholder="Search..."/>
+                <input type="text" name="q" placeholder="Search..."/>
             </form>
         </li>
     @else
@@ -45,7 +45,7 @@
         </li> 
         <li class="xn-search pull-right">
             <form role="form" id="form-search" action="{{route('explorer.search')}}">
-                <input type="text" name="search" placeholder="Search..."/>
+                <input type="text" name="q" placeholder="Search..."/>
             </form>
         </li>
     @endguest
