@@ -145,6 +145,15 @@ class Glp {
         return $response;
     }
 
+    public function count()
+    {
+        $response = Curl::to($this->host.'blockchain/count')
+            ->withHeader('Content-Type: application/json')
+            ->asJson()
+            ->get();
+        return $response;
+    }
+
     public function qrCode($address)
     {
         $renderer = new \BaconQrCode\Renderer\Image\Png();

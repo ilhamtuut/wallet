@@ -9,13 +9,13 @@
     </div>
     <div class="col-md-4">
         <div class="widget widget-default widget-no-subtitle">
-            <div class="widget-big-int"><span class="num-count" id="transactions"><i class="fa fa-spinner fa-spin"></i></span></div>                            
+            <div class="widget-big-int"><span class="num-count">{{$block->transactions}}</span></div>                            
             <div class="widget-subtitle">Current transactions</div>                         
         </div>                        
     </div>
     <div class="col-md-4">
         <div class="widget widget-default widget-no-subtitle">
-            <div class="widget-big-int"><span class="num-count" id="blockCount"><i class="fa fa-spinner fa-spin"></i></span></div>                            
+            <div class="widget-big-int"><span class="num-count">{{$block->blocks}}</span></div>                            
             <div class="widget-subtitle">Blocks in chain</div>                         
         </div>                    
     </div>
@@ -84,7 +84,6 @@
         setTimeout(loadData(), 1000);
     });
 
-    var transactions = 0;
     function loadData(){
         $.ajax({
             url: "{{env('APP_URL')}}/blocks",
@@ -93,9 +92,7 @@
             success: function (data) {
                 $('#body-block').children().remove();
                 if(data.length > 0 ){
-                    $('#blockCount').html(addCommas(data.length));
                     $.each(data, function (i,item) {
-                        transactions += item.transactions.length;
                         $('#body-block').append(
                             '<tr>'+
                                 '<td><a href="{{url('block')}}/'+item.hash+'">'+ item.hash +'</a></td>'+
@@ -104,7 +101,6 @@
                                 '<td>'+ addCommas(item.transactions.length) +'</td>'+
                             '</tr>');
                     });
-                    $('#transactions').html(addCommas(transactions));
                 }else{
                     $('#body-block').append('<tr><td colspan="4" class="text-center">No blocks.</td></tr>');
                 }

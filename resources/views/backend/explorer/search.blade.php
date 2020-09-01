@@ -14,13 +14,12 @@
                 <p>Please enter search terms.</p>
                 <div class="col-md-6">
                     <form action="{{route('explorer.search')}}" method="GET">
-                        @csrf
                         <div class="form-group">
                             <label class="control-label">Search by address, block number or hash, transaction:</label>
                             <input name="q" type="text" class="form-control">
                         </div>
                         <div class="form-group">
-                            <button class="btn btn-primary" type="submit">Search</button>                        
+                            <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i> Search</button>                        
                         </div>
                     </form>
                 </div>

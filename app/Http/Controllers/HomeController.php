@@ -31,7 +31,8 @@ class HomeController extends Controller
             ->asJson()
             ->get();
         $glp_btc = number_format($response,8);
-        return view('backend.home.index',compact('glp_btc'));
+        $block = Glp::count();
+        return view('backend.home.index',compact('glp_btc','block'));
     }
 
     public function blocks(Request $request)
