@@ -25,7 +25,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $price_glp = 1.2; // usd
+        $price_glp = 9; // usd
         $url = 'https://blockchain.info/tobtc?currency=USD&value='.$price_glp;
         $response = Curl::to($url)
             ->asJson()
