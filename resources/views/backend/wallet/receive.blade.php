@@ -58,7 +58,7 @@
                                             <div class="btn-group">
                                                 <a href="#" data-toggle="dropdown" class="btn btn-info dropdown-toggle">Action <span class="caret"></span></a>
                                                 <ul class="dropdown-menu" role="menu">
-                                                    <li><a href="#" class="call" data-id="{{$value->id}}" data-label="{{$value->label}}" data-url="{{route('wallet.update_label')}}" data-toggle="modal" data-target="#modal_label">Change Label</a></li>
+                                                    <li><a href="#" class="call" data-id="{{$value->id}}" data-label="{{$value->label}}" data-toggle="modal" data-target="#modal_label">Change Label</a></li>
                                                     <li><a href="#" class="call_qrcode" data-toggle="modal" data-qrcode="{{App\Facades\Glp::qrCode($value->address)}}" data-wallet="{{$value->address}}" data-target="#modal_qrcode">QR-Code</a></li>                     
                                                 </ul>
                                             </div>
@@ -107,7 +107,7 @@
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
                 <h4 class="modal-title" id="defModalHeadLable"><span class="text-white">Change Label</span></h4>
             </div>
-            <form method="POST" id="form-update-label">
+            <form action="{{route('wallet.update_label')}}" method="POST" id="form-update-label">
                 <div class="modal-body">
                     @csrf
                     <div class="form-group">
@@ -162,7 +162,6 @@
     }
 
     $('.call').on('click', function () {
-        $('#form-update-label').attr('action', $(this).data('url'));
         $('#labelID').val($(this).data('id'));
         $('#label').val($(this).data('label'));
     });
