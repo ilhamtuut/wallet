@@ -107,7 +107,7 @@
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
                 <h4 class="modal-title" id="defModalHeadLable"><span class="text-white">Change Label</span></h4>
             </div>
-            <form method="POST" id="form-update">
+            <form method="POST" id="form-update-label">
                 <div class="modal-body">
                     @csrf
                     <div class="form-group">
@@ -161,7 +161,7 @@
     }
 
     $('.call').on('click', function () {
-        $('#form-update').attr('action', $(this).data('url'));
+        $('#form-update-label').attr('action', $(this).data('url'));
         $('#label').val($(this).data('label'));
     });
 
