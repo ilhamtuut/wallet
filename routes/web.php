@@ -29,7 +29,7 @@ Route::group(['middleware' => ['auth','verified','block']], function() {
 	  	Route::get('/transaction', ['as' => 'transaction', 'uses' => 'MyWalletController@transaction']);
 	  	Route::get('/send', ['as' => 'send', 'uses' => 'MyWalletController@send']);
 	  	Route::get('/receive', ['as' => 'receive', 'uses' => 'MyWalletController@receive']);
-	  	Route::post('/update/label/{id}', ['as' => 'update_label', 'uses' => 'MyWalletController@update_label']);
+	  	Route::put('/update/label/{id}', ['as' => 'update_label', 'uses' => 'MyWalletController@update_label']);
 	  	Route::post('/sendCoin', ['as' => 'sendCoin', 'uses' => 'MyWalletController@sendCoin']);
 	  	Route::post('/createWallet', ['as' => 'createWallet', 'uses' => 'MyWalletController@createWallet']);
 	});
