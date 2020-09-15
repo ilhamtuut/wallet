@@ -19,18 +19,34 @@
         <li class="{{ isset($page) && $page == 'home' ? 'active' : '' }}">
             <a href="{{route('home')}}"><span class="fa fa-globe"></span> <span class="xn-text">GLP Explorer</span></a>
         </li>
-        <li class="{{ isset($page) && $page == 'my_wallet' ? 'active' : '' }}">
-            <a href="{{route('wallet.index')}}"><span class="fa fa-credit-card"></span> <span class="xn-text">My Wallet</span></a>
-        </li>
-        <li class="{{ isset($page) && $page == 'transactions' ? 'active' : '' }}">
-            <a href="{{route('wallet.transaction')}}"><span class="fa fa-tasks"></span> <span class="xn-text">Transaction</span></a>
-        </li>
-        <li class="{{ isset($page) && $page == 'send' ? 'active' : '' }}">
-            <a href="{{route('wallet.send')}}"><span class="fa fa-arrow-circle-up"></span> <span class="xn-text">Send</span></a>
-        </li>                    
-        <li class="{{ isset($page) && $page == 'receive' ? 'active' : '' }}">
-            <a href="{{route('wallet.receive')}}"><span class="fa fa-arrow-circle-down"></span> <span class="xn-text">Receive</span></a>
-        </li>
+        @role('member')
+            <li class="{{ isset($page) && $page == 'my_wallet' ? 'active' : '' }}">
+                <a href="{{route('wallet.index')}}"><span class="fa fa-credit-card"></span> <span class="xn-text">My Wallet</span></a>
+            </li>
+            <li class="{{ isset($page) && $page == 'transactions' ? 'active' : '' }}">
+                <a href="{{route('wallet.transaction')}}"><span class="fa fa-tasks"></span> <span class="xn-text">Transaction</span></a>
+            </li>
+            <li class="{{ isset($page) && $page == 'send' ? 'active' : '' }}">
+                <a href="{{route('wallet.send')}}"><span class="fa fa-arrow-circle-up"></span> <span class="xn-text">Send</span></a>
+            </li>                    
+            <li class="{{ isset($page) && $page == 'receive' ? 'active' : '' }}">
+                <a href="{{route('wallet.receive')}}"><span class="fa fa-arrow-circle-down"></span> <span class="xn-text">Receive</span></a>
+            </li>
+        @endrole
+
+        @role(['developer','administrator'])
+            <li class="{{ isset($page) && $page == 'users' ? 'active' : '' }}">
+                <a href="{{route('administrator.users.list')}}"><span class="fa fa-users"></span> <span class="xn-text">Users</span></a>
+            </li>
+            <li class="{{ isset($page) && $page == 'settings' ? 'active' : '' }}">
+                <a href="{{route('administrator.settings.index')}}"><span class="fa fa-cog"></span> <span class="xn-text">Settings</span></a>
+            </li>
+            <li class="{{ isset($page) && $page == 'wallet' ? 'active' : '' }}">
+                <a href="{{route('administrator.wallet.list')}}"><span class="fa fa-credit-card"></span> <span class="xn-text">Wallet</span></a>
+            </li>
+            </li>
+        @endrole
+
     @endguest
 
     @guest

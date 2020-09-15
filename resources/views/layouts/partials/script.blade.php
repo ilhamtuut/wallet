@@ -78,4 +78,13 @@
     function capitalizeFirstLetter(string) {
 	  return string.charAt(0).toUpperCase() + string.slice(1);
 	}
+
+    function copyToClipboard(text) {
+        var $temp = $("<input>");
+        $("body").append($temp);
+        $temp.val(text).select();
+        document.execCommand("copy");
+        $temp.remove();
+        noty({text: 'Address is Copied', layout: 'topRight', type: 'success',timeout: 1000});
+    }
 </script>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Setting;
 use App\Facades\Glp;
 use Illuminate\Http\Request;
 use Ixudra\Curl\Facades\Curl;
@@ -25,7 +26,11 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $setting = Setting::where('name','Price GLP')->first();
         $price_glp = 9; // usd
+        if($setting){
+            $price_glp = $setting->value; // usd
+        }
         $url = 'https://blockchain.info/tobtc?currency=USD&value='.$price_glp;
         $response = Curl::to($url)
             ->asJson()

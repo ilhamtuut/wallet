@@ -170,5 +170,10 @@
         $('#qrcode_img').attr('src', $(this).data('qrcode'));
         $('#wallet').html($(this).data('wallet'));
     });
+
+    $('#btn_submit').on('click',function(){
+        $('#action').addClass('hidden');
+        $('#spinner').removeClass('hidden');
+    });
 </script>
 @endsection

@@ -23,7 +23,7 @@ Route::get('/block/{hash}', ['as' => 'explorer.block', 'uses' => 'ExplorerContro
 Route::get('/address/{address}', ['as' => 'explorer.address', 'uses' => 'ExplorerController@address']);
 Route::get('/search', ['as' => 'explorer.search', 'uses' => 'ExplorerController@search']);
 
-Route::group(['middleware' => ['auth','verified']], function() {
+Route::group(['middleware' => ['auth','verified','block']], function() {
 	Route::group(['prefix' => 'wallet', 'as' => 'wallet.'], function() {
 	  	Route::get('/', ['as' => 'index', 'uses' => 'MyWalletController@index']);
 	  	Route::get('/transaction', ['as' => 'transaction', 'uses' => 'MyWalletController@transaction']);
@@ -38,5 +38,22 @@ Route::group(['middleware' => ['auth','verified']], function() {
 	  	Route::get('/setting', ['as' => 'setting', 'uses' => 'UserController@setting']);
 	  	Route::post('/updateName', ['as' => 'updateName', 'uses' => 'UserController@updateName']);
 	  	Route::post('/updatePassword', ['as' => 'updatePassword', 'uses' => 'UserController@updatePassword']);
+	});
+
+	// administrator
+	Route::group(['prefix' => 'administrator', 'as' => 'administrator.','middleware' => ['role:developer|administrator']], function() {
+		Route::group(['prefix' => 'users', 'as' => 'users.' ], function() {
+		  	Route::get('/list', ['as' => 'list', 'uses' => 'UserController@index']);
+		  	Route::get('/block/{id}', ['as' => 'block', 'uses' => 'UserController@block']);
+		});
+
+		Route::group(['prefix' => 'settings', 'as' => 'settings.' ], function() {
+		  	Route::get('/', ['as' => 'index', 'uses' => 'SettingController@index']);
+		  	Route::post('/update/{id}', ['as' => 'update', 'uses' => 'SettingController@update']);
+		});
+
+		Route::group(['prefix' => 'wallet', 'as' => 'wallet.' ], function() {
+		  	Route::get('/list', ['as' => 'list', 'uses' => 'MyWalletController@list']);
+		});
 	});
 });

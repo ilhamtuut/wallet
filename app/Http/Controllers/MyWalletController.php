@@ -109,4 +109,17 @@ class MyWalletController extends Controller
         $request->session()->flash('success', 'Successfully, updated label');
         return redirect()->back();
     }
+
+    public function list(Request $request)
+    {    
+        $search = $request->search;
+        $data = Wallet::when($search, function ($query) use ($search) {
+                    $query->whereHas('user', function ($cari) use ($search){
+                        $cari->where('users.name', 'LIKE', $search.'%');
+                    });
+                })->orderBy('label')
+                ->simplePaginate(20);
+        return view('backend.wallet.list',compact('data'))->with('i', (request()->input('page', 1) - 1) * 20);
+        
+    }
 }

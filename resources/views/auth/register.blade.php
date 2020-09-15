@@ -64,7 +64,7 @@
                     <div class="form-group row">
                         <div class="col-md-4"></div>
                         <div class="col-md-6 offset-md-4">
-                            <button type="button" class="btn btn-primary" onclick="openModal()">
+                            <button type="button" class="btn btn-primary" id="btn-action" onclick="openModal()">
                                 {{ __('Register') }}
                             </button>
                         </div>

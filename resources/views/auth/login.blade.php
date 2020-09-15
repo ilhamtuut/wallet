@@ -8,6 +8,12 @@
                 <h3 class="panel-title">{{ __('Login') }}</h3>
             </div>
             <div class="panel-body">
+                @if (Session::has('failed'))
+                    <div class="alert alert-danger" role="alert">
+                        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                        <strong>Oh snap!</strong> {{ session('failed') }}
+                    </div>
+                @endif
                 <form method="POST" action="{{ route('login') }}" id="login">
                     @csrf
                     <div class="form-group row">
@@ -53,7 +59,7 @@
                     <div class="form-group row mb-0">
                         <div class="col-md-4"></div>
                         <div class="col-md-8 offset-md-4">
-                            <button type="button" class="btn btn-primary" onclick="openModal()">
+                            <button type="button" class="btn btn-primary" id="btn-action" onclick="openModal()">
                                 {{ __('Login') }}
                             </button>
 
