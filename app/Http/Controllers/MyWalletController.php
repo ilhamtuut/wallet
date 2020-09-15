@@ -96,13 +96,14 @@ class MyWalletController extends Controller
         
     }
 
-    public function update_label(Request $request, $id)
+    public function update_label(Request $request)
     {
         $this->validate($request, [
+            'id' => ['required', 'string'],
             'label' => ['required', 'string'],
         ]);
 
-        Wallet::find($id)->update([
+        Wallet::find($request->id)->update([
             'label' => $request->label
         ]);
 
