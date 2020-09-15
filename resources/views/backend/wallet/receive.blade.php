@@ -35,7 +35,7 @@
                 <h3 class="panel-title"><span class="fa fa-arrow-circle-down"></span> Receive</h3>
             </div>
             <div class="panel-body">
-                <p>These are your GLP addresses which you can use to receive money.</p>
+                <p>These are your GLP addresses which you can use to receive coin.</p>
                 <button class="btn btn-success mb" data-toggle="modal" data-target="#modal_create"><i class="fa fa-plus"></i> New Address</button>
                 <div class="table-responsive">
                     <table class="table table-bordered" width="100%">
