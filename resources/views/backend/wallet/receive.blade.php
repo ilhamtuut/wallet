@@ -58,7 +58,7 @@
                                             <div class="btn-group">
                                                 <a href="#" data-toggle="dropdown" class="btn btn-info dropdown-toggle">Action <span class="caret"></span></a>
                                                 <ul class="dropdown-menu" role="menu">
-                                                    <li><a href="#" class="call" data-label="{{$value->label}}" data-url="{{route('wallet.updateLabel',$value->id)}}" data-toggle="modal" data-target="#modal_label">Change Label</a></li>
+                                                    <li><a href="#" class="call" data-label="{{$value->label}}" data-url="{{route('wallet.update_label',$value->id)}}" data-toggle="modal" data-target="#modal_label">Change Label</a></li>
                                                     <li><a href="#" class="call_qrcode" data-toggle="modal" data-qrcode="{{App\Facades\Glp::qrCode($value->address)}}" data-wallet="{{$value->address}}" data-target="#modal_qrcode">QR-Code</a></li>                     
                                                 </ul>
                                             </div>

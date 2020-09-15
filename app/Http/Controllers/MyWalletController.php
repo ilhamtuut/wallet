@@ -96,7 +96,7 @@ class MyWalletController extends Controller
         
     }
 
-    public function updateLabel(Request $request, $id)
+    public function update_label(Request $request, $id)
     {
         $this->validate($request, [
             'label' => ['required', 'string'],
