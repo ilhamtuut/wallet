@@ -75,17 +75,17 @@ class MyWalletController extends Controller
         $toAdddres = $request->destination;
         $amount = $request->amount;
         $wallet = Auth::user()->wallet;
-        $cekAddress = Glp::checkAddress($toAdddres);
-        if($cekAddress){
+        // $cekAddress = Glp::checkAddress($toAdddres);
+        // if($cekAddress){
             $response = Glp::transaction($fromAdddres, $toAdddres, $amount);
             if($response){
                 $request->session()->flash('success', 'Successfully, send coin.');
             }else{
                 $request->session()->flash('failed', 'Failed, send coin. Please check your balance or address.');
             }
-        }else{
-            $request->session()->flash('failed', 'Failed, Invalid destination address.');
-        }
+        // }else{
+        //     $request->session()->flash('failed', 'Failed, Invalid destination address.');
+        // }
         return redirect()->back();
     }
 

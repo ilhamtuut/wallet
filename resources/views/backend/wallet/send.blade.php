@@ -32,7 +32,7 @@
         @endif
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title"><span class="fa fa-arrow-circle-up"></span> Send</h3>
+                <h3 class="panel-title"><span class="fa fa-arrow-circle-up"></span> Send GLP</h3>
             </div>
             <div class="panel-body">
                 <p>Use the form below to send coins to another address.</p>
@@ -40,11 +40,11 @@
                     <div class="alert alert-warning">
                         NOTE : Minimum balance settles 1.0000000 GLP.
                     </div>
-                    <form action="{{route('wallet.sendCoin')}}" method="POST">
+                    <form action="{{route('wallet.sendCoin')}}" method="POST" id="form-send">
                         @csrf
                         <div class="form-group">
                             <label class="control-label">Choose Address</label>
-                            <select name="adddres" class="form-control">
+                            <select name="adddres" class="form-control" required>
                                 <option value="">Choose Address</option>
                                 @foreach($wallet as $value)
                                     <option value="{{$value->address}}">{{$value->label}} - {{$value->address}}</option>
@@ -63,14 +63,17 @@
                             </div>                                            
                         </div> --}}
                         <div class="form-group">
-                            <label class="control-label">Amount</label>
-                            <div class="input-group">
-                                <input name="amount" type="number" class="form-control" value="0.00" required>
-                                <span class="input-group-addon">GLP</span>
-                            </div>                                            
+                            <label class="control-label">Amount GLP</label>
+                            {{-- <div class="input-group"> --}}
+                                <input name="amount" type="text" class="form-control" placeholder="Amount GLP" required>
+                                {{-- <span class="input-group-addon">GLP</span> --}}
+                            {{-- </div>                                             --}}
                         </div>
                         <div class="form-group">
-                            <button class="btn btn-primary">Send Coin</button>                                          
+                            <button class="btn btn-primary" type="submit" id="send">Send Coin</button>  
+                            <div class="text-center">
+                                <i class="fa fa-spinner fa-spin hidden" id="loader"></i>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -78,4 +81,17 @@
         </div>
     </div>
 </div>
+@endsection
+@section('script')
+    <script type="text/javascript">
+        var frmRes = $('#form-send');
+        var frmResValidator = frmRes.validate();
+        $('#send').on('click', function () {
+            var valid = frmRes.valid();
+            if(valid){
+                $(this).addClass('hidden');
+                $('#loader').removeClass('hidden');
+            }
+        });
+    </script>
 @endsection
