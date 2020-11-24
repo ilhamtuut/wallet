@@ -50,7 +50,7 @@
                     </div>
                 </div>
                 
-                {{-- <div class="row">
+                <div class="row">
                     <div class="col-md-12">
                         <h2><b>Transactions</b></h2>
                         <div class="table-responsive">
@@ -58,34 +58,48 @@
                                 <thead class="bg-primary">
                                     <tr>
                                         <th>Transaction</th>
-                                        <th>Block</th>
-                                        <th>Time</th>
-                                        <th>Amount</th>
+                                        {{-- <th>Block</th> --}}
+                                        {{-- <th>Time</th> --}}
+                                        <th class="text-right">Amount</th>
                                         <th>Currency</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="body-transactions">
                                     <tr>
-                                        <td><a href="{{route('explorer.hash','26111e49…10016e1f')}}">26111e49…10016e1f</a></td>
-                                        <td><a href="{{route('explorer.block','3336997')}}">3336997</a></td>
-                                        <td>2020-08-01 00:54:51 -0700</td>
-                                        <td>- 1,869,530.72501976</td>
-                                        <td>GLP</td>
-                                    </tr>
-                                    <tr>
-                                        <td><a href="{{route('explorer.hash','26111e49…10016e1f')}}">26111e49…10016e1f</a></td>
-                                        <td><a href="{{route('explorer.block','3336997')}}">3336997</a></td>
-                                        <td>2020-08-01 00:54:51 -0700</td>
-                                        <td>+ 1,869,530.72501976</td>
-                                        <td>GLP</td>
+                                        <td colspan="3" class="text-center"><i class="fa fa-spinner fa-spin"></i></td>
                                     </tr>
                                 </tbody>
                             </table> 
                         </div>
                     </div>
-                </div> --}}
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+@endsection
+@section('script')
+<script type="text/javascript">
+    $('document').ready(function () {
+        setTimeout(loadData(), 1000);
+    });
+
+    function loadData(){
+        var data = @json(\App\Facades\Glp::historyWallet($address));
+        $('#body-transactions').children().remove();
+        if(data.length > 0 ){
+            $.each(data, function (i,item) {
+                $('#body-transactions').append(
+                    '<tr>'+
+                        '<td><a href="{{url('tx')}}/'+item.transaction+'">'+ item.transaction +'</a></td>'+
+                        '<td class="text-right">'+ addCommas(parseFloat(item.amount * 0.0000001).toFixed(7)) +'</td>'+
+                        '<td>GLP</td>'+
+                    '</tr>');
+            });
+        }else{
+            $('#body-transactions').append('<tr><td colspan="3" class="text-center">No transactions.</td></tr>');
+        }
+    }
+</script>
 @endsection

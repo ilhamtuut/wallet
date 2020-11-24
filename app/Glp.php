@@ -162,6 +162,24 @@ class Glp {
         return $data;
     }
 
+    public function historyWallet($address)
+    {
+        $response = Curl::to($this->host.'blockchain/transactions/riwayat?address='.$address)
+            ->withHeader('Content-Type: application/json')
+            ->asJson()
+            ->get();
+        return $response;
+    }
+
+    public function historyWalletAll()
+    {
+        $response = Curl::to($this->host.'blockchain/transactions/history')
+            ->withHeader('Content-Type: application/json')
+            ->asJson()
+            ->get();
+        return $response;
+    }
+
     public function count()
     {
         $response = Curl::to($this->host.'blockchain/count')
