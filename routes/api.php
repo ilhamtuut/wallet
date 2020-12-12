@@ -13,7 +13,22 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::post('login', 'Api\LoginController@login');
+Route::post('register', 'Api\RegisterController@register');
+Route::post('password/reset', 'Api\ResetPasswordController@sendResetLinkEmail');
+Route::group(['middleware' => ['auth:api'], 'namespace'=> 'Api'], function() {
+	// user
+   	Route::group(['prefix' => 'user'], function() {
+		Route::get('profile', 'UserController@profile');
+		Route::post('password/update', 'UserController@updatePassword');
+	});
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+	// glp
+   	Route::group(['prefix' => 'glp'], function() {
+		Route::post('create', 'WalletController@createWallet');
+		Route::get('balance/{address}', 'WalletController@myBalance');
+		Route::get('myWallet', 'WalletController@myWallet');
+		Route::post('sendCoin', 'WalletController@sendCoin');
+		Route::get('transaction', 'WalletController@transaction');
+	});
 });
