@@ -90,9 +90,10 @@ class WalletController extends Controller
         return Response::json($data);
     }
 
-    public function transaction(Request $request)
+    public function transaction(Request $request, $address)
     {    
-        $transaction = Auth::user()->transaction()->orderBy('id','desc')->paginate(10);
+        $transaction = Glp::historyWallet($address);
+        // $transaction = Auth::user()->transaction()->orderBy('id','desc')->paginate(10);
         $data = array(
             'success' => true, 
             'data' => $transaction

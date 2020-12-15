@@ -30,6 +30,6 @@ Route::group(['middleware' => ['auth:api'], 'namespace'=> 'Api'], function() {
 		Route::get('balance/{address}', 'WalletController@myBalance');
 		Route::get('myWallet', 'WalletController@myWallet');
 		Route::post('sendCoin', 'WalletController@sendCoin');
-		Route::get('transaction', 'WalletController@transaction');
+		Route::get('transaction/{address}', 'WalletController@transaction');
 	});
 });
