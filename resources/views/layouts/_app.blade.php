@@ -17,7 +17,7 @@
                             <a href="#"><span class="fa fa-instagram"></span></a>
                         </div>
                         <div class="contacts">
-                            <a href="#">Copyright © {{date('Y')}} Grenline Project. All rights reserved. </a>
+                            <a href="#">Copyright © {{date('Y')}} Greenline Project. All rights reserved. </a>
                         </div>
                     </div>
                 </div>
@@ -54,7 +54,7 @@
                     </div>
                     <div class="mb-footer">
                         <div class="pull-right">
-                            <a class="btn btn-success btn-lg" href="{{ route('logout') }}"
+                            <a class="btn btn-primary btn-lg" href="{{ route('logout') }}"
                                onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();">
                                 Yes

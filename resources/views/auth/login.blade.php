@@ -5,7 +5,7 @@
     <div class="col-md-6">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title">{{ __('Login') }}</h3>
+                <h3 class="panel-title text-center"><img src="{{asset('dist/img/favicon.png')}}" width="25px"> {{ __('Login') }}</h3>
             </div>
             <div class="panel-body">
                 @if (Session::has('failed'))

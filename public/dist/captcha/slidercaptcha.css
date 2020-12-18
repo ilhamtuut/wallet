@@ -13,7 +13,7 @@ body {
     text-align: center;
     line-height: 40px;
     background: #f7f9fa;
-    color: #45494c;
+    color: #a7a6a6;
     border-radius: 2px;
 }
 
@@ -22,15 +22,15 @@ body {
     left: 0;
     right: 0;
     top: 0;
-    background-color: #f7f9fa;
+    background-color: #33414f;
     height: 40px;
     border-radius: 2px;
-    border: 1px solid #e6e8eb;
+    border: 1px solid #33414f;
 }
 
 .sliderContainer_active .slider {
     top: -1px;
-    border: 1px solid #1991FA;
+    border: 1px solid #08c0bc;
 }
 
 .sliderContainer_active .sliderMask {
@@ -55,12 +55,12 @@ body {
 
 .sliderContainer_fail .slider {
     top: -1px;
-    border: 1px solid #f57a7a;
-    background-color: #f57a7a !important;
+    border: 1px solid #b64645;
+    background-color: #b64645 !important;
 }
 
 .sliderContainer_fail .sliderMask {
-    border: 1px solid #f57a7a;
+    border: 1px solid #b64645;
     background-color: #fce1e1;
     border-width: 1px 0 1px 1px;
 }
@@ -78,7 +78,7 @@ body {
     left: 0;
     top: 0;
     height: 40px;
-    border: 0 solid #1991FA;
+    border: 0 solid #08c0bc;
     background: #D1E9FE;
     border-radius: 2px;
 }
@@ -89,7 +89,8 @@ body {
     left: 0;
     width: 40px;
     height: 40px;
-    background: #fff;
+    background: #08c0bc;
+    color: #fff;
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
     cursor: pointer;
     transition: background .2s linear;

@@ -18,7 +18,7 @@
 <script type='text/javascript' src='{{asset('dist/js/plugins/noty/themes/default.js')}}'></script>
 <script type="text/javascript">
 	$('.x-navigation .xn-search').on('click', function (e) {
-		if (e.offsetX > e.target.offsetLeft) {
+		if (e.offsetX > e.target.offsetHeight) {
             // click on element
         }else{
 			$('#form-search').submit();

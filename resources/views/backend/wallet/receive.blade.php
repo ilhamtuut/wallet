@@ -36,7 +36,7 @@
             </div>
             <div class="panel-body">
                 <p>These are your GLP addresses which you can use to receive coin.</p>
-                <button class="btn btn-success mb" data-toggle="modal" data-target="#modal_create"><i class="fa fa-plus"></i> New Address</button>
+                <button class="btn btn-primary mb" data-toggle="modal" data-target="#modal_create"><i class="fa fa-plus"></i> New Address</button>
                 <div class="table-responsive">
                     <table class="table table-bordered" width="100%">
                         <thead class="bg-primary">
@@ -56,7 +56,7 @@
                                         <td width="25%">{{App\Facades\Glp::balance($value->address)}} GLP</td>
                                         <td width="10%" class="text-center">
                                             <div class="btn-group">
-                                                <a href="#" data-toggle="dropdown" class="btn btn-info dropdown-toggle">Action <span class="caret"></span></a>
+                                                <a href="#" data-toggle="dropdown" class="btn btn-primary dropdown-toggle">Action <span class="caret"></span></a>
                                                 <ul class="dropdown-menu" role="menu">
                                                     <li><a href="#" class="call" data-id="{{$value->id}}" data-label="{{$value->label}}" data-toggle="modal" data-target="#modal_label">Change Label</a></li>
                                                     <li><a href="#" class="call_qrcode" data-toggle="modal" data-qrcode="{{App\Facades\Glp::qrCode($value->address)}}" data-wallet="{{$value->address}}" data-target="#modal_qrcode">QR-Code</a></li>                     
@@ -134,7 +134,7 @@
             </div>
             <div class="modal-body">
                 <div class="text-center">
-                    <img id="qrcode_img" alt="qrcode">
+                    <img class="mb" id="qrcode_img" alt="qrcode">
                     <p>Your GLP address</p>
                     <h5><b style="line-break: anywhere;" id="wallet"></b></h5>
                     <button type="button" class="btn btn-primary mb" onclick="copyToClipboard()"><i class="fa fa-copy"></i> Copy Address</button>

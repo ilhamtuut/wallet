@@ -7,7 +7,7 @@
                 <h3 class="panel-title">Transaction {{$data->id}}</h3>
             </div>
             <div class="panel-body">
-                <h2><b>Details</b></h2>
+                <h2><b class="text-white">Details</b></h2>
                 <div class="table-responsive">
                     <table class="table table-bordered">
                         <tbody>
@@ -51,7 +51,7 @@
                     </table> 
                 </div>
 
-                <h2><b>Inputs</b></h2>
+                <h2><b class="text-white">Inputs</b></h2>
                 <div class="table-responsive">
                     <table class="table table-bordered">
                         <thead class="bg-primary">
@@ -66,10 +66,10 @@
                             @forelse($data->data->inputs as $key =>$value)
                                 <tr>
                                     <td>{{$key}}</td>
-                                    <td><a href="{{route('explorer.hash',$value->transaction)}}">{{$value->transaction}}</a></td>
+                                    <td><a class="text-grn" href="{{route('explorer.hash',$value->transaction)}}">{{$value->transaction}}</a></td>
                                     <td>{{number_format($value->amount * 0.0000001,7)}}</td>
                                     <td>
-                                        <a href="{{route('explorer.address',$value->address)}}">{{$value->address}}</a>
+                                        <a class="text-grn" href="{{route('explorer.address',$value->address)}}">{{$value->address}}</a>
                                     </td>
                                 </tr>
                             @empty
@@ -81,7 +81,7 @@
                     </table> 
                 </div>
 
-                <h2><b>Outputs</b></h2>
+                <h2><b class="text-white">Outputs</b></h2>
                 <div class="table-responsive">
                     <table class="table table-bordered">
                         <thead class="bg-primary">
@@ -97,7 +97,7 @@
                                     <td>{{$key}}</td>
                                     <td>{{number_format($value->amount * 0.0000001,7)}}</td>
                                     <td>
-                                        <a href="{{route('explorer.address',$value->address)}}">{{$value->address}}</a>
+                                        <a class="text-grn" href="{{route('explorer.address',$value->address)}}">{{$value->address}}</a>
                                     </td>
                                 </tr>
                             @empty

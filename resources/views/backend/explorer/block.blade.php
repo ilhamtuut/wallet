@@ -7,7 +7,7 @@
                 <h3 class="panel-title">Block #{{$data->index}}</h3>
             </div>
             <div class="panel-body">
-                <h2><b>Details</b></h2>
+                <h2><b class="text-white">Details</b></h2>
                 <div class="table-responsive">
                     <table class="table table-bordered">
                         <tbody>
@@ -17,7 +17,7 @@
                             </tr>
                             <tr>
                                 <td>Previous Block</td>
-                                <td><a href="{{route('explorer.block', $data->previousHash)}}">{{$data->previousHash}}</a></td>
+                                <td><a class="text-grn" href="{{route('explorer.block', $data->previousHash)}}">{{$data->previousHash}}</a></td>
                             </tr>
                             <tr>
                                 <td>Time</td>
@@ -47,7 +47,7 @@
                     </table> 
                 </div>
 
-                <h2><b>Transactions</b></h2>
+                <h2><b class="text-white">Transactions</b></h2>
                 <div class="table-responsive">
                     <table class="table table-bordered">
                         <thead class="bg-primary">
@@ -61,18 +61,18 @@
                         <tbody>
                             @foreach ($data->transactions as $key => $value)
                                 <tr>
-                                    <td><a href="{{route('explorer.hash',$value->id)}}">{{substr_replace($value->id, '...', 8, strlen($value->id) - 8 ).substr_replace($value->id, '', 0, strlen($value->id) - 8 )}}</a></td>
+                                    <td><a class="text-grn" href="{{route('explorer.hash',$value->id)}}">{{substr_replace($value->id, '...', 8, strlen($value->id) - 8 ).substr_replace($value->id, '', 0, strlen($value->id) - 8 )}}</a></td>
                                     <td>{{ucfirst($value->type)}}</td>
                                     <td>
                                     @forelse ($value->data->inputs as $key => $val)
-                                        <a href="{{route('explorer.address', $val->address)}}">{{$val->address}}</a> <br>Amount : {{number_format($val->amount * 0.0000001,7)}}
+                                        <a class="text-grn" href="{{route('explorer.address', $val->address)}}">{{$val->address}}</a> <br>Amount : {{number_format($val->amount * 0.0000001,7)}}
                                     @empty
                                         -
                                     @endforelse
                                     </td>
                                     <td>
                                         @forelse ($value->data->outputs as $key => $val)
-                                            <a href="{{route('explorer.address', $val->address)}}">{{$val->address}}</a> <br>Amount : {{number_format($val->amount * 0.0000001,7)}}
+                                            <a class="text-grn" href="{{route('explorer.address', $val->address)}}">{{$val->address}}</a> <br>Amount : <span class="text-grn">{{number_format($val->amount * 0.0000001,7)}}</span>
                                         @empty
                                             -
                                         @endforelse

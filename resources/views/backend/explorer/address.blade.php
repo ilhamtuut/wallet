@@ -10,8 +10,8 @@
                 <div class="row mb">
                     <div class="col-md-7">
                         <div class="text-center">
-                            <img src="{{$qrCode}}" alt="qrcode"> <br>
-                            <a href="{{route('login')}}" class="btn btn-success mb">Send Greenline Project Coin</a>
+                            <img class="mb" src="{{$qrCode}}" alt="qrcode"> <br>
+                            <a href="{{route('login')}}" class="btn btn-primary mb">Send Greenline Project Coin</a>
                         </div>
                         <div class="table-responsive">
                             <table class="table table-bordered">
@@ -52,7 +52,7 @@
                 
                 <div class="row">
                     <div class="col-md-12">
-                        <h2><b>Transactions</b></h2>
+                        <h2><b class="text-white">Transactions</b></h2>
                         <div class="table-responsive">
                             <table class="table table-bordered">
                                 <thead class="bg-primary">
@@ -92,7 +92,7 @@
             $.each(data, function (i,item) {
                 $('#body-transactions').append(
                     '<tr>'+
-                        '<td><a href="{{url('tx')}}/'+item.transaction+'">'+ item.transaction +'</a></td>'+
+                        '<td><a class="text-grn" href="{{url('tx')}}/'+item.transaction+'">'+ item.transaction +'</a></td>'+
                         '<td class="text-right">'+ addCommas(parseFloat(item.amount * 0.0000001).toFixed(7)) +'</td>'+
                         '<td>GLP</td>'+
                     '</tr>');
