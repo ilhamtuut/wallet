@@ -53,8 +53,13 @@ class MyWalletController extends Controller
 
     public function transaction(Request $request)
     {    
-        $data = Auth::user()->transaction()->orderBy('id','desc')->paginate(10);
-        return view('backend.wallet.transaction',compact('data'))->with('i', (request()->input('page', 1) - 1) * 10);
+        // $data = Auth::user()->transaction()->orderBy('id','desc')->paginate(10);
+        if(is_null($request->address)){
+            $address = Wallet::where('user_id',Auth::id())->first()->address;
+        }else{
+            $address = $request->address;
+        }
+        return view('backend.wallet.transaction',compact('address'))->with('i', (request()->input('page', 1) - 1) * 10);
     }
 
     public function send(Request $request)

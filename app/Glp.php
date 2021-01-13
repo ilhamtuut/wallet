@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Crypt;
 class Glp {
 
     private $host = 'http://mumbai.solusi.cloud:3001/';
+    private $url = 'https://gate.greenlineproject.tech/api/';
 
     public function createWallet($label)
     {
@@ -77,7 +78,7 @@ class Glp {
         $password = $wallet->password;
         $fromAddress = $wallet->address;
         $amountSathosi = $amount * 10000000;
-        $response = Curl::to($this->host.'operator/wallets/'.$addressID.'/transactions')
+        $response = Curl::to($this->url.'operator/wallets/'.$addressID.'/transactions')
             ->withData([
                 'fromAddress' => $fromAddress,
                 'toAddress' => $toAddress,
@@ -97,6 +98,15 @@ class Glp {
             $return = true;
         }
         return $return;
+    }
+
+    public function detailAddress($address, $page = null)
+    {
+        $response = Curl::to($this->url.'history?search='.$address.'&page='.$page)
+            ->withHeader('Content-Type: application/json')
+            ->asJson()
+            ->get();
+        return $response;
     }
 
     public function generatePass()

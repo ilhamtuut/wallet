@@ -59,7 +59,8 @@
                                                 <a href="#" data-toggle="dropdown" class="btn btn-primary dropdown-toggle">Action <span class="caret"></span></a>
                                                 <ul class="dropdown-menu" role="menu">
                                                     <li><a href="#" class="call" data-id="{{$value->id}}" data-label="{{$value->label}}" data-toggle="modal" data-target="#modal_label">Change Label</a></li>
-                                                    <li><a href="#" class="call_qrcode" data-toggle="modal" data-qrcode="{{App\Facades\Glp::qrCode($value->address)}}" data-wallet="{{$value->address}}" data-target="#modal_qrcode">QR-Code</a></li>                     
+                                                    <li><a href="#" class="call_qrcode" data-toggle="modal" data-qrcode="{{App\Facades\Glp::qrCode($value->address)}}" data-wallet="{{$value->address}}" data-target="#modal_qrcode">QR-Code</a></li>           
+                                                    <li><a href="{{url('wallet/transaction?address='.$value->address)}}">Transaction</a></li>
                                                 </ul>
                                             </div>
                                         </td>

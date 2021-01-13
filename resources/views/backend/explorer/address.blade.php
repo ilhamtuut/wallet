@@ -86,14 +86,20 @@
     });
 
     function loadData(){
-        var data = @json(\App\Facades\Glp::historyWallet($address));
+        var address = '{{$address}}'
+        var data = @json(\App\Facades\Glp::detailAddress($address));
         $('#body-transactions').children().remove();
-        if(data.length > 0 ){
-            $.each(data, function (i,item) {
+        if(data.data.length > 0 ){
+            $.each(data.data, function (i,item) {
+                if(item.fromAddress == address){
+                    var label = '<span class="text-danger">- </span>'
+                }else{
+                    var label = '<span class="text-grn">+ </span>'
+                }
                 $('#body-transactions').append(
                     '<tr>'+
-                        '<td><a class="text-grn" href="{{url('tx')}}/'+item.transaction+'">'+ item.transaction +'</a></td>'+
-                        '<td class="text-right">'+ addCommas(parseFloat(item.amount * 0.0000001).toFixed(7)) +'</td>'+
+                        '<td><a class="text-grn" href="{{url('tx')}}/'+item.txid+'">'+ item.txid +'</a></td>'+
+                        '<td class="text-right">'+ label + addCommas(parseFloat(item.amount * 0.0000001).toFixed(7)) +'</td>'+
                         '<td>GLP</td>'+
                     '</tr>');
             });
