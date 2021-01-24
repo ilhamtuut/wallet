@@ -1,31 +1,44 @@
 @extends('layouts._app',['page'=>'home'])
 @section('content')
 <div class="row mt">
-    <div class="col-md-3">
+    <div class="col-md-4">
         <div class="widget widget-default widget-no-subtitle">
-            <div class="widget-big-int"><span class="num-count">{{$glp_btc}}</span> BTC/GLP</div>                   
-            <div class="widget-subtitle">Last estimated price</div>                         
+            <div class="widget-big-int"><span class="num-count">{{number_format($supply->supply * 0.0000001)}}</span> GLP</div>                   
+            <div class="widget-subtitle">Total Supply</div>                         
         </div>                        
     </div>
-    <div class="col-md-3">
+    <div class="col-md-4">
         <div class="widget widget-default widget-no-subtitle">
-            <div class="widget-big-int"><span class="num-count">{{number_format($difficulty)}}</span></div>                            
-            <div class="widget-subtitle">Current difficulty</div>                         
+            <div class="widget-big-int"><span class="num-count">{{number_format($supply->totalMining)}}</span></div>                            
+            <div class="widget-subtitle">Total Mining</div>                         
         </div>                        
     </div>
-    <div class="col-md-3">
-        <div class="widget widget-default widget-no-subtitle">
-            <div class="widget-big-int"><span class="num-count">{{$block->transactions}}</span></div>                            
-            <div class="widget-subtitle">Current transactions</div>                         
-        </div>                        
-    </div>
-    <div class="col-md-3">
+    <div class="col-md-4">
         <div class="widget widget-default widget-no-subtitle">
             <div class="widget-big-int"><span class="num-count">{{$block->blocks}}</span></div>                            
             <div class="widget-subtitle">Blocks in chain</div>                         
         </div>                    
     </div>
-
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <div class="widget widget-default widget-no-subtitle">
+            <div class="widget-big-int"><span class="num-count">{{$glp_btc}}</span> BTC/GLP</div>                   
+            <div class="widget-subtitle">Last estimated price</div>                         
+        </div>                        
+    </div>
+    <div class="col-md-4">
+        <div class="widget widget-default widget-no-subtitle">
+            <div class="widget-big-int"><span class="num-count">{{number_format($difficulty)}}</span></div>                            
+            <div class="widget-subtitle">Current difficulty</div>                         
+        </div>                        
+    </div>
+    <div class="col-md-4">
+        <div class="widget widget-default widget-no-subtitle">
+            <div class="widget-big-int"><span class="num-count">{{$block->transactions}}</span></div>                            
+            <div class="widget-subtitle">Current transactions</div>                         
+        </div>                        
+    </div>
 </div>
 <div class="row">
     <div class="col-md-12">

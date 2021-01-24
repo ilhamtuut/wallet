@@ -146,6 +146,15 @@ class Glp {
         return $response;
     }
 
+    public function supply()
+    {
+        $response = Curl::to($this->url.'supply')
+            ->withHeader('Content-Type: application/json')
+            ->asJson()
+            ->get();
+        return $response;
+    }
+
     public function transactions()
     {
         $response = Curl::to($this->host.'blockchain/transactions')
