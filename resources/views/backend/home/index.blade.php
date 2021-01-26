@@ -9,7 +9,7 @@
     </div>
     <div class="col-md-4">
         <div class="widget widget-default widget-no-subtitle">
-            <div class="widget-big-int"><span class="num-count">{{number_format($supply->totalMining)}}</span></div>                            
+            <div class="widget-big-int"><span class="num-count">{{number_format($supply->totalMining * 0.0000001 + 766434.4955912)}}</span></div>                            
             <div class="widget-subtitle">Total Mining</div>                         
         </div>                        
     </div>
